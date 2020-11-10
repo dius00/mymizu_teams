@@ -1,7 +1,7 @@
 export default function MonthlyBoard() {
     return (
         <div className="monthlyboard-container">
-            Monthly board
+            <h1>Monthly board: </h1>
         </div>
     )
 }

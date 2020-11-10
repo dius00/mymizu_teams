@@ -8,6 +8,10 @@ import Leaderboards from "./components/Leaderboards/Leaderboards";
 import PrivateRoute from "./components/PrivateRoute";
 
 export default function App() {
+	
+	// TODO: set current user after authentication!
+	const currentUser = true; // just for testing; remove later :)
+
 	const logoutUser = async () => {
 		
 		try {
@@ -25,15 +29,18 @@ export default function App() {
 		<div>
 		<Router>
 					<div className="app">
-						<nav className="main-nav">
-							<Link to="/">Home</Link>
-							<Link to="/login">Login</Link>
-							<Link to="/signup">Signup</Link>
-				<Link to="/dashboard">Team Dashboard</Link>
-							<Link to="/leaderboards">Leaderboards</Link>
-							<a href="#!" onClick={ logoutUser }>Logout</a>
-						</nav>
-						<Switch>
+							{ !currentUser &&
+								<nav className="main-nav">
+									<Link to="/">Home</Link>
+								</nav>
+							}
+							{ currentUser &&
+								<nav className="main-nav">
+									<Link to="/dashboard">Team Dashboard</Link>
+									<Link to="/leaderboards">Leaderboards</Link>
+									<a href="#!" onClick={ logoutUser }>Logout</a>
+								</nav>
+							}						<Switch>
 							<Route path="/" exact component={ Landing } />
 							<Route path="/login" exact component={ Login } />
 							<Route path="/signup" exact component={ Signup } />

@@ -1,7 +1,7 @@
 export default function TeamRegistration() {
     return (
         <div className="teamregistration-container">
-            Team registration
+            <h1>Create a team: </h1>
         </div>
     )
 }

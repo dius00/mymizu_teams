@@ -1,7 +1,7 @@
 export default function TeamStats() {
     return (
         <div className="teamstats-container">
-            Team stats
+            <h1>How's my team doing? </h1>
         </div>
     )
 }
