@@ -5,6 +5,7 @@ import Login from "./components/Landing/Login";
 import Signup from "./components/Landing/Signup";
 import TeamDashboard from "./components/TeamDashboard/TeamDashboard";
 import Leaderboards from "./components/Leaderboards/Leaderboards";
+import PrivateRoute from "./components/PrivateRoute";
 
 export default function App() {
 
@@ -23,8 +24,8 @@ export default function App() {
 						<Route path="/" exact component={ Landing } />
 						<Route path="/login" exact component={ Login } />
 						<Route path="/signup" exact component={ Signup } />
-            <Route path="/dashboard" exact component={ TeamDashboard } />
-						<Route path="/leaderboards" exact component={ Leaderboards } />
+            <PrivateRoute path="/dashboard" exact component={ TeamDashboard } />
+						<PrivateRoute path="/leaderboards" exact component={ Leaderboards } />
             {/* <Route component={NoMatch} /> */}
 					</Switch>
 				</div>
