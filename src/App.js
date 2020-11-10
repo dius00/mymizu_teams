@@ -1,25 +1,55 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import Landing from "./components/Landing/Landing";
+import Login from "./components/Landing/Login";
+import Signup from "./components/Landing/Signup";
+import TeamDashboard from "./components/TeamDashboard/TeamDashboard";
+import Leaderboards from "./components/Leaderboards/Leaderboards";
+import PrivateRoute from "./components/PrivateRoute";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+export default function App() {
+	
+	// TODO: set current user after authentication!
+	const currentUser = true; // just for testing; remove later :)
 
-export default App;
+	const logoutUser = async () => {
+		
+		try {
+			// TODO: logs out currently logged in user
+			// assuming logout works, redirect to landing:
+			window.location = "/";			
+		} catch(error) {
+			console.error(error);
+		}
+	}
+
+	const invalidRoute = () => "Uh oh! Looks like that page doesn't exist :(";
+
+	return (
+		<div>
+		<Router>
+					<div className="app">
+							{ !currentUser &&
+								<nav className="main-nav">
+									<Link to="/">Home</Link>
+								</nav>
+							}
+							{ currentUser &&
+								<nav className="main-nav">
+									<Link to="/dashboard">Team Dashboard</Link>
+									<Link to="/leaderboards">Leaderboards</Link>
+									<a href="#!" onClick={ logoutUser }>Logout</a>
+								</nav>
+							}						<Switch>
+							<Route path="/" exact component={ Landing } />
+							<Route path="/login" exact component={ Login } />
+							<Route path="/signup" exact component={ Signup } />
+							<PrivateRoute path="/dashboard" exact component={ TeamDashboard } />
+							<PrivateRoute path="/leaderboards" exact component={ Leaderboards } />
+							<Route component={ invalidRoute } />
+						</Switch>
+					</div>
+				</Router>
+		</div>
+	);
+	}
