@@ -24,7 +24,8 @@
 	"scripts": {
 		"start": "react-scripts start",
 		"build": "react-scripts build",
-		"test": "react-scripts test",
+    "test": "react-scripts test",
+    "serve": "firebase emulators:start",
 		"eject": "react-scripts eject"
 	},
 	"eslintConfig": {
