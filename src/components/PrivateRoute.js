@@ -3,7 +3,7 @@ import { Route, Redirect } from "react-router-dom";
 
 export default function PrivateRoute({ component: Component, ...rest }) {
 
-    /* const currentUser = ??? need some way to check auth and find
+    /* TODO: const currentUser = ??? need some way to check auth and find
     current user here
     */
 
