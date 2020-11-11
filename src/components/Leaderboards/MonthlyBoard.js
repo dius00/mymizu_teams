@@ -29,7 +29,7 @@ const teams = [
 ];
 
 
-export default function MonthlyBoard() {
+export default function MonthlyBoard({monthlySorted}) {
   const [avgView, setAvgView] = useState(true);
 
     return (
@@ -40,7 +40,7 @@ export default function MonthlyBoard() {
     id="custom-switch"
     label="Toogle Average/Total view"
     checked={avgView}
-    onClick = {() => setAvgView(!avgView)}
+    onChange = {() => setAvgView(!avgView)}
   />
       <Table striped bordered hover variant="dark">
   <thead>
@@ -53,7 +53,7 @@ export default function MonthlyBoard() {
   </thead>
   <tbody>
   {teams.map((team,index) => (
-    <tr>
+    <tr key={index}>
     <td>{index+1}</td>
     <td>{team.team_name}</td>
     <td>{avgView ? ((team.monthly_water/500)/team.members.length) : (team.monthly_water/500)}</td>

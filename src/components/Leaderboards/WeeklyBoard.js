@@ -6,30 +6,30 @@ const teams = [
       "team_name": "splashBros",
       "members": ["kenny01123","hakuba3301","heysivani","dius00"],
       "weekly_water": 1000,
-      "weekly_water": 5000
+      "monthly_water": 5000
     },
     {
       "team_name": "waterBros",
       "members": ["kenny01123","hakuba3301","heysivani","dius00"],
       "weekly_water": 1000,
-      "weekly_water": 10
+      "monthly_water": 10
     },
     {
       "team_name": "waterFellas",
       "members": ["kenny01123","hakuba3301","heysivani","dius00"],
       "weekly_water": 1000,
-      "weekly_water": 10
+      "monthly_water": 10
     },
     {
       "team_name": "splashBros",
       "members": ["kenny01123","hakuba3301","heysivani","dius00"],
       "weekly_water": 1000,
-      "weekly_water": 10
+      "monthly_water": 10
     },
 ];
 
 
-export default function WeekyBoard() {
+export default function WeekyBoard({weeklySorted}) {
   const [avgView, setAvgView] = useState(true);
   // useEffect(()=>setAvgView(true),[]);
     return (
@@ -40,7 +40,7 @@ export default function WeekyBoard() {
           id="custom-switch"
           label="Toogle Average/Total view"
           checked={avgView}
-          onClick = {() => setAvgView(!avgView)}
+          onChange = {() => setAvgView(!avgView)}
           />
 
       <Table striped bordered hover variant="dark">
@@ -54,7 +54,7 @@ export default function WeekyBoard() {
   </thead>
   <tbody>
   {teams.map((team,index) => (
-    <tr>
+    <tr key={index}>
     <td>{index+1}</td>
     <td>{team.team_name}</td>
     <td>{avgView ? ((team.weekly_water/500)/team.members.length) : (team.weekly_water/500)}</td>

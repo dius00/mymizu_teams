@@ -20,7 +20,7 @@ firebase.initializeApp(config);
 
 // const db = firebase.database();
 // const auth = firebase.auth();
-// export {auth,db}
+export const db = firebase.database;
 // export 
 // export default auth;
 // firebase.initializeApp(config);
