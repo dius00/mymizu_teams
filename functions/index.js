@@ -3,7 +3,7 @@
   // axios.defaults.baseURL = 'https://my-mizu-dev2-gen8n.ondigitalocean.app/dev-api'
   // axios.defaults.headers = {'Authorization': `bearer ${token}`}
 
- 
+
   const functions = require("firebase-functions");
   const admin = require("firebase-admin");
   const seeds = require('./seeds.json')
@@ -15,23 +15,54 @@
 
   //check mymizu user
 
-  exports.checkValid = functions.https.onRequest(async (req, res) => {
+  exports.checkValidUser = functions.https.onRequest(async (req, res) => {
     const userName = req.query.name;
-      axios({
+    axios({
       method: 'get',
       url: `https://my-mizu-dev2-gen8n.ondigitalocean.app/dev-api/users/byUsername?username=${userName}`,
-      headers: {'Authorization': 'Bearer 8|PXsa6gAg0ptkiSFpxWVUlPlKj6QCQ93xGCh4cWeY'}, 
-      }).then(data =>res.send(true)).catch(error=>res.send(false))
+      headers: {
+        'Authorization': 'Bearer 8|PXsa6gAg0ptkiSFpxWVUlPlKj6QCQ93xGCh4cWeY'
+      },
+    }).then(data => res.send(true)).catch(error => res.send(false))
   });
 
-  
-  //create db user
+  //see user refill history 
+  exports.checkUserHistory = functions.https.onRequest(async (req, res) => {
+    const userName = req.query.name;
+    axios({
+        method: 'get',
+        url: `https://my-mizu-dev2-gen8n.ondigitalocean.app/dev-api/users/byUsername/refills?username=${userName}`,
+        headers: {
+          'Authorization': 'Bearer 8|PXsa6gAg0ptkiSFpxWVUlPlKj6QCQ93xGCh4cWeY'
+        },
+      }).then(resp => {
+        return res.send(resp.data.refills)
+      })
+      .catch(error => res.send(false))
+  });
 
-  //create team
+  exports.getUserWeeklyVolume = functions.https.onRequest(async (req, res) => {
+    const userName = req.query.name;
+    axios({
+        method: 'get',
+        url: `https://my-mizu-dev2-gen8n.ondigitalocean.app/dev-api/users/byUsername/refills?username=${userName}`,
+        headers: {
+          'Authorization': 'Bearer 8|PXsa6gAg0ptkiSFpxWVUlPlKj6QCQ93xGCh4cWeY'
+        },
+      }).then(resp => {
+        let history = resp.data.refills;
+        let currentDate = new Date();
+        let currentMonth = currentDate.getUTCMonth();
+        //Target date is new than a certain date
+        history = history.filter(one => new Date(one.created_at) > new Date('2020-11-11T01:02:42.000000Z'))
+        return res.send(history)
+      })
+      .catch(error => res.send(false))
+  });
 
-  //see user
 
-  //see team
+
+
 
   //see team ordered by water
 
