@@ -1,0 +1,10 @@
+#logo {
+	width: 50%;
+	height: auto;
+	justify-content: center;
+}
+
+#app {
+	background-color: #3a94d1;
+	border: 1px solid rgb(255, 255, 255);
+}
