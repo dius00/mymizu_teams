@@ -1,19 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Route, Redirect } from "react-router-dom";
+import { auth } from "../firebase";
 
-export default function PrivateRoute({ component: Component, ...rest }) {
-
-    /* TODO: const currentUser = ??? need some way to check auth and find
-    current user here
-    */
-
-   const currentUser = true; // just for testing purposes! remove this later :)
+export default function PrivateRoute({ component: RouteComponent, currentUser, ...rest }) {
+    console.log("private route current user ", auth().currentUser);
 
     return (
         <Route
             {...rest}
             render={props => {
-                return currentUser ? <Component {...props} /> : <Redirect to="/" />
+                return currentUser ? <RouteComponent {...props} /> : <Redirect to="/" />
             }}
         >
         </Route>

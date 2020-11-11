@@ -2,20 +2,20 @@ import WeeklyBoard from "./WeeklyBoard";
 import MonthlyBoard from "./MonthlyBoard";
 import {Card, Nav} from 'react-bootstrap'
 import React, { useState, useEffect } from "react";
-import { db } from "../../firebase"
+// import { db } from "../../firebase"
 
 
 export default function Leaderboards() {
   const [listView, setListView] = useState("monthly");
 
-  useEffect(
-     () => {
-      async function test(){
-      const table = await db.ref("teams");
-      table.once("value", (data) => console.log(data.val()));
-    }
-    test();
-},[]);
+//   useEffect(
+//      () => {
+//       async function test(){
+//       const table = await db.ref("teams");
+//       table.once("value", (data) => console.log(data.val()));
+//     }
+//     test();
+// },[]);
 
     return (
       <Card className="mt-5" >
