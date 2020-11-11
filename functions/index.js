@@ -2,6 +2,7 @@
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const seeds = require('./seeds.json')
+const axios = require("axios");
 admin.initializeApp();
 
 
@@ -99,9 +100,39 @@ exports.updateUser = functions.https.onRequest((req, res) => {
 });
 
 
+exports.seedDrink = functions.https.onRequest(async (req, res) => {
+
+const {data} = await axios({
+method: 'post',
+url: 'https://my-mizu-dev2-gen8n.ondigitalocean.app/dev-api/refills',
+headers: {'Authorization': 'Bearer 8|PXsa6gAg0ptkiSFpxWVUlPlKj6QCQ93xGCh4cWeY'}, 
+data: {
+  "amount": "1000",
+  "tap_id": "1"
+}});
+console.log(data);
+res.send(data);
+});
 
 
+exports.getUserRefill = functions.https.onRequest(async (req, res) => {
 
+  let user = "deprecatedotters";
+  const {data} = await axios({
+  method: 'get',
+  url: `https://my-mizu-dev2-gen8n.ondigitalocean.app/dev-api/users/byUsername/refills?username=${user}`,
+  headers: {'Authorization': 'Bearer 8|PXsa6gAg0ptkiSFpxWVUlPlKj6QCQ93xGCh4cWeY'} ,
+  // data: {
+  //   "username": "deprecatedotter",
+  //   "bottle_size": "500"
+  // }
+});
+  // });
+  console.log(data);
+
+  res.send(data);
+  });
+  
 
 // exports.seed = functions.https.onRequest((req, res) => {
 //     const usersRef = admin.database().ref();
