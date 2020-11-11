@@ -58,8 +58,9 @@
         let curDay = curTime.getDay();
         //Target date is new than a certain date
         history = history.filter(one => new Date(one.created_at) > new Date(curYear, curMonth, curDate - curDay + 1))
-                         .map(one=>one.amount);
-        return res.send(history)
+                         .map(one=>one.amount)
+                         .reduce((a,b)=>a+b)
+        return res.json(history)
       })
       .catch(error => res.send(false))
   });
@@ -80,9 +81,11 @@
         let curYear = curDate.getFullYear();
         //Target date is new than a certain date
         history = history.filter(one => new Date(one.created_at) > new Date(curYear, curMonth))
-                         .map(one => one.amount);
+                         .map(one => one.amount)
+                         .reduce((a,b)=>a+b);
         // for (const amount of history) result+=amount;
-        return res.send(history);
+
+        return res.json(history);
       })
       .catch(error => res.send(false))
   });
