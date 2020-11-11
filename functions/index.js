@@ -1,5 +1,5 @@
   const axios = require('axios')
-  const token = '7|qKwFQjE33LhkoKQg3WomPzF5zu6dHw4twHJ3upmt'
+  const token = process.env.TOKEN;
   // axios.defaults.baseURL = 'https://my-mizu-dev2-gen8n.ondigitalocean.app/dev-api'
   // axios.defaults.headers = {'Authorization': `bearer ${token}`}
 
@@ -13,6 +13,12 @@
   // // Create and Deploy Your First Cloud Functions
   // // https://firebase.google.com/docs/functions/write-firebase-functions
 
+
+  exports.helloWorld = functions.https.onRequest((req, res) => {
+    res.send("Hello from Firebase!");
+  });
+
+
   //check mymizu user
 
   exports.checkValidUser = functions.https.onRequest(async (req, res) => {
@@ -21,7 +27,7 @@
       method: 'get',
       url: `https://my-mizu-dev2-gen8n.ondigitalocean.app/dev-api/users/byUsername?username=${userName}`,
       headers: {
-        'Authorization': 'Bearer 8|PXsa6gAg0ptkiSFpxWVUlPlKj6QCQ93xGCh4cWeY'
+        'Authorization': `Bearer ${token}`
       },
     }).then(data => res.send(true)).catch(error => res.send(false))
   });
@@ -33,7 +39,7 @@
         method: 'get',
         url: `https://my-mizu-dev2-gen8n.ondigitalocean.app/dev-api/users/byUsername/refills?username=${userName}`,
         headers: {
-          'Authorization': 'Bearer 8|PXsa6gAg0ptkiSFpxWVUlPlKj6QCQ93xGCh4cWeY'
+          'Authorization': `Bearer ${token}`
         },
       }).then(resp => {
         return res.send(resp.data.refills)
@@ -47,7 +53,7 @@
         method: 'get',
         url: `https://my-mizu-dev2-gen8n.ondigitalocean.app/dev-api/users/byUsername/refills?username=${userName}`,
         headers: {
-          'Authorization': 'Bearer 8|PXsa6gAg0ptkiSFpxWVUlPlKj6QCQ93xGCh4cWeY'
+          'Authorization': `Bearer ${token}`
         },
       }).then(resp => {
         let history = resp.data.refills;
@@ -71,7 +77,7 @@
         method: 'get',
         url: `https://my-mizu-dev2-gen8n.ondigitalocean.app/dev-api/users/byUsername/refills?username=${userName}`,
         headers: {
-          'Authorization': 'Bearer 8|PXsa6gAg0ptkiSFpxWVUlPlKj6QCQ93xGCh4cWeY'
+          'Authorization': `Bearer ${token}`
         },
       }).then(resp => {
         let result=0;
@@ -90,13 +96,27 @@
       .catch(error => res.send(false))
   });
 
+  //get team volume 
+
+
+
+
+
 
   //see team ordered by water
 
-  exports.helloWorld = functions.https.onRequest((req, res) => {
-    res.send("Hello from Firebase!");
+  exports.showTeams = functions.https.onRequest((req, res) => {
+    const teamsRef = admin.database().ref("teams");
+    teamsRef.once("value", (data) => {
+      res.send(data);
+    });
   });
 
+
+
+
+
+  //seeding 
   exports.seed = functions.https.onRequest((req, res) => {
     const usersRef = admin.database().ref();
     admin
