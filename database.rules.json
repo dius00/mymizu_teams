@@ -1,6 +1,9 @@
 {
   "rules": {
     ".read": "now < 1607526000000",
-    ".write": "now < 1607526000000"
+    ".write": "now < 1607526000000",
+    "teams": {
+      ".indexOn": "team_name"
+    }
   }
 }

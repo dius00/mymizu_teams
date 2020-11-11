@@ -27,6 +27,13 @@
             "members": ["kenny01123","hakuba3301","heysivani","dius00"],
             "weekly_water": 1000,
             "monthly_water": 10
+          },
+          {
+            "team_name": "lorenzo",
+            "members": ["lorenzo"],
+            "weekly_water": 10,
+            "monthly_water": 10
           }
+          
     ]
   }
