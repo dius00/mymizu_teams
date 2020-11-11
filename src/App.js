@@ -1,4 +1,7 @@
 import React from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Background from './assets/bg4.jpg';
+
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 // import './App.css';
 import Landing from "./components/Landing/Landing";
@@ -31,29 +34,35 @@ export default function App() {
 	const invalidRoute = () => "Uh oh! Looks like that page doesn't exist :(";
 
 	return (
-    <Container
-			className="d-flex align-items-center justify-content-center"
-			style={{ minHeight: "100vh" }}
-		>
-			<div className="w-100" style={{ maxWidth: "400px" }}>
-				<Router>
+    
+			<div className="w-100"
+      style={{
+        backgroundImage:
+          `url(${Background})`,
+          opacity:'95%'
+      }}>
+        <Container className="pt-5"
+        			style={{ minHeight: "100vh" }}
+              >
+        <Leaderboards></Leaderboards>
+				{/* <Router>
 					<AuthProvider>
 						<Switch>
-							{/* <PrivateRoute exact path="/" component={Dashboard} /> */}
-							{/* <PrivateRoute path="/update-profile" component={UpdateProfile} /> */}
+							<PrivateRoute exact path="/" component={Dashboard} />
+							<PrivateRoute path="/update-profile" component={UpdateProfile} />
 							<Route path="/signup" component={Signup} />
 							<Route path="/login" component={Login} />
               <Route path="/" exact component={ Landing } />
 
-							{/* <Route path="/forgot-password" component={ForgotPassword} /> */}
+							<Route path="/forgot-password" component={ForgotPassword} /> 
               <PrivateRoute path="/dashboard" exact component={ TeamDashboard } />
 							<PrivateRoute path="/leaderboards" exact component={ Leaderboards } />
 							<Route component={ invalidRoute } />
 						</Switch>
 					</AuthProvider>
-				</Router>
+				</Router> */}
+        </Container>
 			</div>
-		</Container>
 		// <div>
 		// <Router>
 		// 			<div className="app">

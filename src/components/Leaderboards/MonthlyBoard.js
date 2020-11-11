@@ -1,5 +1,6 @@
-import ListGroup from 'react-bootstrap/ListGroup'
-
+import Table from 'react-bootstrap/Table'
+import Form from 'react-bootstrap/Form'
+import React, { useState } from 'react'
 const teams = [
   {
       "team_name": "splashBros",
@@ -29,17 +30,54 @@ const teams = [
 
 
 export default function MonthlyBoard() {
+  const [avgView, setAvgView] = useState(true);
+
     return (
-       <div className="monthlyboard-container">
-         Monthly
-        <ListGroup>
-          {teams.map((team,index) => (
-          <ListGroup.Item><strong>{(index+1)}. {team.team_name}</strong><br></br>
-          Avg. bottles saved: <strong>{((team.monthly_water/500)/team.members.length)}</strong><br></br>
-          Avg. CO<small>2</small> saved: <strong>{((team.monthly_water/500)/team.members.length)*82.8} grams</strong><br></br>
-          </ListGroup.Item>)
-        )}
-        </ListGroup>
-      </div>
+      <div>
+<Form.Check 
+    className="pb-3"
+    type="switch"
+    id="custom-switch"
+    label="Toogle Average/Total view"
+    checked={avgView}
+    onClick = {() => setAvgView(!avgView)}
+  />
+      <Table striped bordered hover variant="dark">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Team Name</th>
+      <th>{avgView ? "Avg." : "Total" } bottles saved</th>
+      <th>{avgView ? "Avg." : "Total" } CO<small><strong>2</strong></small> saved</th>
+    </tr>
+  </thead>
+  <tbody>
+  {teams.map((team,index) => (
+    <tr>
+    <td>{index+1}</td>
+    <td>{team.team_name}</td>
+    <td>{avgView ? ((team.monthly_water/500)/team.members.length) : (team.monthly_water/500)}</td>
+    <td>{avgView ? ((team.monthly_water/500)/team.members.length)*82.8 : ((team.monthly_water/500)*82.8)} grams</td>
+    </tr>))}
+  </tbody>
+</Table>
+</div>
     )
 }
+
+
+
+// (
+//   <div className="monthlyboard-container">
+//     Monthly
+//    <ListGroup>
+//      {teams.map((team,index) => (
+//      <ListGroup.Item><strong>{(index+1)}. {team.team_name}</strong><br></br>
+//      Avg. bottles saved: <strong>{((team.monthly_water/500)/team.members.length)}</strong><br></br>
+//      Avg. CO<small>2</small> saved: <strong>{((team.monthly_water/500)/team.members.length)*82.8} grams</strong><br></br>
+//      </ListGroup.Item>)
+//    )}
+//    </ListGroup>
+//  </div>
+// )
+// }

@@ -1,10 +1,12 @@
 import firebase from "firebase/app";
 import "firebase/auth";
+import "firebase/database";
+
 
 // const firebase = require("firebase");
-const firebaseui = require("firebaseui");
+// const firebaseui = require("firebaseui");
 
-const app = firebase.initializeApp({
+const config = {
 	apiKey: `${process.env.REACT_APP_FIREBASE_API_KEY}`,
 	authDomain: `${process.env.REACT_APP_AUTHDOMAIN}`,
 	databaseURL: `${process.env.REACT_APP_DATABASEURL}`,
@@ -13,7 +15,11 @@ const app = firebase.initializeApp({
 	messagingSenderId: `${process.env.REACT_APP_MESSAGING_SENDER_ID}`,
 	appId: `${process.env.REACT_APP_APP_ID}`,
 	measurementId: `${process.env.REACT_APP_MEASUREMENT_ID}`,
-});
+};
+firebase.initializeApp(config);
 
-export const auth = app.auth();
-export default auth;
+const db = firebase.database();
+const auth = firebase.auth();
+export {auth,db}
+// export 
+// export default auth;
