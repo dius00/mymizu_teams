@@ -1,7 +1,7 @@
   const axios = require('axios')
-  const token = process.env.TOKEN;
+  // const token = process.env.TOKEN;
 
-  // const token = '7|qKwFQjE33LhkoKQg3WomPzF5zu6dHw4twHJ3upmt';
+  const token = '7|qKwFQjE33LhkoKQg3WomPzF5zu6dHw4twHJ3upmt';
   // axios.defaults.baseURL = 'https://my-mizu-dev2-gen8n.ondigitalocean.app/dev-api'
   // axios.defaults.headers = {'Authorization': `bearer ${token}`}
 
@@ -98,11 +98,11 @@
       .catch(error => res.send(false))
   });
 
-  //get team volume 
+  //get and update team volume 
 
   exports.getTeamWeeklyVolume = functions.https.onRequest((req, res) => {
-    const targetname = req.query.name;
-    const teamsRef = admin.database().ref("teams").orderByChild("team_name").equalTo(targetname)
+    const targetName = req.query.name;
+    const teamsRef = admin.database().ref("teams").orderByChild("team_name").equalTo(targetName)
     teamsRef.once("value", async (data) => {
       let result=0;
       const obj = data.val();
@@ -114,9 +114,31 @@
         console.log(data)
         result+=data;
       }
-      res.json(result)
+      const index = data.node_.children_.root_.key;
+      const targetRef = admin.database().ref(`teams/${index}`);
+      targetRef.update({weekly_water: result});
+      targetRef.once("value", (data) => {
+        res.send(data)
+      })
     });
   });
+
+  // exports.experiment = functions.https.onRequest((req, res) => {
+  //   const targetName = req.query.name;
+  //   const teamsRef = admin.database().ref("teams/").orderByChild("team_name").equalTo(targetName)
+  //   teamsRef.once("value", (data) => {
+  //     const index = data.node_.children_.root_.key;
+  //     console.log(index)
+  //     const targetRef = admin.database().ref(`teams/${index}`);
+  //     targetRef.update({team_name: "fuck"});
+  //     targetRef.once("value", (data) => {
+  //       res.send(data)
+  //     })
+  //   });
+  // });
+
+
+
 
   exports.getTeamMonthlyVolume = functions.https.onRequest((req, res) => {
     const targetname = req.query.name;
@@ -132,8 +154,12 @@
         console.log(data)
         result+=data;
       }
-      // const nameRef= admin.database.ref(`teams`)
-      res.json(result)
+      const index = data.node_.children_.root_.key;
+      const targetRef = admin.database().ref(`teams/${index}`);
+      targetRef.update({monthly_water: result});
+      targetRef.once("value", (data) => {
+        res.send(data)
+      })
     });
   });
 
@@ -199,16 +225,6 @@
     });
   });
 
-
-  // exports.showTeams = functions.https.onRequest((req, res) => {
-  //   const teamsRef = admin.database().ref("teams/").orderByChild("team_name").equalTo("lorenzo");
-  //   teamsRef.once("value", (data) => {
-  //     const result= data.val();
-  //     const target= result[result.length-1]
-  //     res.send(target)
-  //     // res.send(data.val());
-  //   });
-  // });
 
 
 
