@@ -73,9 +73,12 @@ exports.seed = functions.https.onRequest(async (req, res) => {
   // eslint-disable-next-line no-await-in-loop
   // const record = await teamRef.where('teamname','==', team_name).get();
   // if(record.empty) {
+    const rand = Math.ceil(Math.random()*5);
+    const fakeMemberList = new Array (rand).fill(false);
+    fakeMemberList.push('deprecatedlemur')
     const createTeam = {
       teamname: team_name,
-      members: [...('a'.repeat(Math.ceil(Math.random()*5)).split(''))].concat("deprecatedotters"),
+      members: fakeMemberList,
       weekly_water: Math.floor(Math.random()*15000),
       monthly_water: Math.floor(Math.random()*50000),
     };
