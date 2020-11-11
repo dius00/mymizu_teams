@@ -42,11 +42,15 @@ export default function Signup() {
 
     return (
 		<Card>
-			<div className="p-3 mb-2 bg-primary text-white">
+			<div className="text-center">
+				<img
+					id="logo"
+					src="https://static1.squarespace.com/static/5d2bebc1fc9ee70001122846/t/5dfc1ac767217d42bdd153a6/1605008796817/"
+				></img>
 				<h2 className="text-center mb-4">Sign up </h2>
 				<h6>Make your own myMizu team: </h6>
 				{error && <Alert variant="danger">{error}</Alert>}
-				<Form onSubmit={ submitSignup }>
+				<Form onSubmit={submitSignup}>
 					<Form.Group id="username">
 						<Form.Label>My Mizu Username</Form.Label>
 						<Form.Control type="username" ref={usernameRef} />
@@ -56,20 +60,23 @@ export default function Signup() {
 						<Form.Control type="email" ref={emailRef} />
 					</Form.Group>
 					<Form.Group id="password">
-						<Form.Label placeholder="Create a password"> Create a password</Form.Label>
+						<Form.Label placeholder="Create a password">
+							{" "}
+							Create a password
+						</Form.Label>
 						<Form.Control type="password" ref={passwordRef} />
 					</Form.Group>
 					<Form.Group id="confirm-password">
-						<Form.Label placeholder="Confirm your password"> Confirm your password</Form.Label>
+						<Form.Label placeholder="Confirm your password">
+							{" "}
+							Confirm your password
+						</Form.Label>
 						<Form.Control type="password" ref={passwordConfirmRef} />
 					</Form.Group>
 
-					<Button 
-						type="submit">
-						Sign up
-					</Button>
+					<Button type="submit">Sign up</Button>
 				</Form>
-				</div>
+			</div>
 		</Card>
     )
 }

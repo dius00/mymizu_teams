@@ -9,6 +9,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import { Container } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { auth } from "./firebase";
+import "./App.css";
 // const firebase = require("firebase");
 // const firebaseui = require("firebaseui");
 
@@ -41,6 +42,7 @@ export default function App() {
 	const invalidRoute = () => "Uh oh! Looks like that page doesn't exist :(";
 
 	return (
+		<div id="app">
     <Container
 			className="d-flex align-items-center justify-content-center"
 			style={{ minHeight: "100vh" }}
@@ -70,6 +72,7 @@ export default function App() {
 				</Router>
 			</div>
 		</Container>
+		</div>
 	);
 	}
 
