@@ -193,14 +193,26 @@
   });
 
   exports.showTeams = functions.https.onRequest((req, res) => {
-    const teamsRef = admin.database().ref("teams/").orderByChild("team_name").equalTo("lorenzo");
+    const teamsRef = admin.database().ref("teams")
     teamsRef.once("value", (data) => {
-      const result= data.val();
-      const target= result[result.length-1]
-      res.send(target)
-      // res.send(data.val());
+      res.send(data.val())
     });
   });
+
+
+  // exports.showTeams = functions.https.onRequest((req, res) => {
+  //   const teamsRef = admin.database().ref("teams/").orderByChild("team_name").equalTo("lorenzo");
+  //   teamsRef.once("value", (data) => {
+  //     const result= data.val();
+  //     const target= result[result.length-1]
+  //     res.send(target)
+  //     // res.send(data.val());
+  //   });
+  // });
+
+
+
+
 
   //post requests
   exports.addUser = functions.https.onRequest((req, res) => {
