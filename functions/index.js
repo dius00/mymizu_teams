@@ -1,5 +1,7 @@
   const axios = require('axios')
   const token = process.env.TOKEN;
+
+  // const token = '7|qKwFQjE33LhkoKQg3WomPzF5zu6dHw4twHJ3upmt';
   // axios.defaults.baseURL = 'https://my-mizu-dev2-gen8n.ondigitalocean.app/dev-api'
   // axios.defaults.headers = {'Authorization': `bearer ${token}`}
 
@@ -98,21 +100,68 @@
 
   //get team volume 
 
+  exports.getTeamWeeklyVolume = functions.https.onRequest((req, res) => {
+    const targetname = req.query.name;
+    const teamsRef = admin.database().ref("teams").orderByChild("team_name").equalTo(targetname)
+    teamsRef.once("value", async (data) => {
+      let result=0;
+      const obj = data.val();
+      const memberList = obj[obj.length-1].members;
+      for (member of memberList) {
+        console.log(member)
+        // eslint-disable-next-line no-await-in-loop
+        const {data}= await axios.get(`http://localhost:5001/mymizuonline/us-central1/getUserWeeklyVolume?name=${member}`)
+        console.log(data)
+        result+=data;
+      }
+      res.json(result)
+    });
+  });
 
-
-
-
-
-  //see team ordered by water
-
-  exports.showTeams = functions.https.onRequest((req, res) => {
-    const teamsRef = admin.database().ref("teams");
-    teamsRef.once("value", (data) => {
-      res.send(data);
+  exports.getTeamMonthlyVolume = functions.https.onRequest((req, res) => {
+    const targetname = req.query.name;
+    const teamsRef = admin.database().ref("teams").orderByChild("team_name").equalTo(targetname)
+    teamsRef.once("value", async (data) => {
+      let result=0;
+      const obj = data.val();
+      const memberList = obj[obj.length-1].members;
+      for (member of memberList) {
+        console.log(member)
+        // eslint-disable-next-line no-await-in-loop
+        const {data}= await axios.get(`http://localhost:5001/mymizuonline/us-central1/getUserMonthlyVolume?name=${member}`)
+        console.log(data)
+        result+=data;
+      }
+      // const nameRef= admin.database.ref(`teams`)
+      res.json(result)
     });
   });
 
 
+
+  exports.testingThings = functions.https.onRequest(async (req, res) => {
+    const {data} = await axios.get('http://localhost:5001/mymizuonline/us-central1/helloWorld')
+    console.log(data)
+    res.send(data)
+  });
+
+
+
+  //see team ordered by volume
+
+  exports.weeklyLeaderBoard = functions.https.onRequest((req, res) => {
+    const teamsRef = admin.database().ref("teams").orderByChild("weekly_water")
+    teamsRef.once("value", (data) => {
+      res.send(data.val());
+    });
+  });
+
+  exports.monthlyLeaderBoard = functions.https.onRequest((req, res) => {
+    const teamsRef = admin.database().ref("teams").orderByChild("monthly_water")
+    teamsRef.once("value", (data) => {
+      res.send(data.val());
+    });
+  });
 
 
 
@@ -124,7 +173,7 @@
       .ref()
       .set(seeds);
     usersRef.once("value", (data) => {
-      res.send(data);
+      res.send(data.val());
     });
   });
 
@@ -132,21 +181,24 @@
   exports.showData = functions.https.onRequest((req, res) => {
     const usersRef = admin.database().ref();
     usersRef.once("value", (data) => {
-      res.send(data);
+      res.send(data.val());
     });
   });
 
   exports.showUsers = functions.https.onRequest((req, res) => {
     const usersRef = admin.database().ref("users");
     usersRef.once("value", (data) => {
-      res.send(data);
+      res.send(data.val());
     });
   });
 
   exports.showTeams = functions.https.onRequest((req, res) => {
-    const teamsRef = admin.database().ref("teams");
+    const teamsRef = admin.database().ref("teams/").orderByChild("team_name").equalTo("lorenzo");
     teamsRef.once("value", (data) => {
-      res.send(data);
+      const result= data.val();
+      const target= result[result.length-1]
+      res.send(target)
+      // res.send(data.val());
     });
   });
 
@@ -159,7 +211,7 @@
       mm_user_name: req.query.mm_username,
     });
     usersRef.once("value", (data) => {
-      res.send(data);
+      res.send(data.val());
     });
   });
 
@@ -171,7 +223,7 @@
       members: req.query.memberList,
     });
     teamsRef.once("value", (data) => {
-      res.send(data);
+      res.send(data.val());
     });
   });
 
