@@ -40,7 +40,7 @@
       })
       .catch(error => res.send(false))
   });
-
+  //get Weekly volume by User
   exports.getUserWeeklyVolume = functions.https.onRequest(async (req, res) => {
     const userName = req.query.name;
     axios({
@@ -51,17 +51,41 @@
         },
       }).then(resp => {
         let history = resp.data.refills;
-        let currentDate = new Date();
-        let currentMonth = currentDate.getUTCMonth();
+        let curTime = new Date();
+        let curMonth = curTime.getMonth();
+        let curYear = curTime.getFullYear();
+        let curDate = curTime.getDate();
+        let curDay = curTime.getDay();
         //Target date is new than a certain date
-        history = history.filter(one => new Date(one.created_at) > new Date('2020-11-11T01:02:42.000000Z'))
+        history = history.filter(one => new Date(one.created_at) > new Date(curYear, curMonth, curDate - curDay + 1))
+                         .map(one=>one.amount);
         return res.send(history)
       })
       .catch(error => res.send(false))
   });
-
-
-
+  //get Monthly volume by User
+  exports.getUserMonthlyVolume = functions.https.onRequest(async (req, res) => {
+    const userName = req.query.name;
+    axios({
+        method: 'get',
+        url: `https://my-mizu-dev2-gen8n.ondigitalocean.app/dev-api/users/byUsername/refills?username=${userName}`,
+        headers: {
+          'Authorization': 'Bearer 8|PXsa6gAg0ptkiSFpxWVUlPlKj6QCQ93xGCh4cWeY'
+        },
+      }).then(resp => {
+        let result=0;
+        let history = resp.data.refills;
+        let curDate = new Date();
+        let curMonth = curDate.getMonth();
+        let curYear = curDate.getFullYear();
+        //Target date is new than a certain date
+        history = history.filter(one => new Date(one.created_at) > new Date(curYear, curMonth))
+                         .map(one => one.amount);
+        // for (const amount of history) result+=amount;
+        return res.send(history);
+      })
+      .catch(error => res.send(false))
+  });
 
 
   //see team ordered by water
@@ -139,40 +163,3 @@
       res.send(data);
     });
   });
-
-
-
-
-
-
-  // exports.seed = functions.https.onRequest((req, res) => {
-  //     const usersRef = admin.database().ref();
-  //     admin
-  //       .database()
-  //       .ref()
-  //       .set([
-  //         {
-  //           user_name: "kenny",
-  //           mm_user_name: "kenny01123",
-  //           last_refill_id: 10,
-  //         },
-  //         {
-  //           user_name: "Jose",
-  //           mm_user_name: "hakuba3301",
-  //           last_refill_id: 20,
-  //         },
-  //         {
-  //           user_name: "Sivani",
-  //           mm_user_name: "sivanisivani",
-  //           last_refill_id: 25,
-  //         },
-  //         {
-  //           user_name: "Antonio",
-  //           mm_user_name: "dius00",
-  //           last_refill_id: 19,
-  //         },
-  //       ]);
-  //     usersRef.once("value", (data) => {
-  //       res.send(data);
-  //     });
-  //   });
