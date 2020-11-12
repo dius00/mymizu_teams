@@ -1,91 +1,124 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
-import "./App.css";
+import Background from "./Assets/bg4.jpg";
 import Landing from "./components/Landing/Landing";
 import Login from "./components/Landing/Login";
 import Signup from "./components/Landing/Signup";
 import TeamDashboard from "./components/TeamDashboard/TeamDashboard";
 import Leaderboards from "./components/Leaderboards/Leaderboards";
-import PrivateRoute from "./components/PrivateRoute";
-
-import { AuthProvider } from "./AuthContext";
-import { Container } from "react-bootstrap";
+// import PrivateRoute from "./components/PrivateRoute";
+import { Container, Nav, Card } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { auth } from "./firebase";
+import "./App.css";
+
 // const firebase = require("firebase");
 // const firebaseui = require("firebaseui");
 
 export default function App() {
-	// TODO: set current user after authentication!
-	const currentUser = true; // just for testing; remove later :)
+	const [currentUser, setCurrentUser] = useState(null);
+
+	useEffect(() => {
+		// check if a user is logged in
+		auth().onAuthStateChanged(user => {
+			if (user) {
+				console.log("set current user");
+				// if a user is currently logged in, store them in state
+				setCurrentUser(user);
+			}
+		});
+	}, []);
 
 	const logoutUser = async () => {
+		console.log("logging out...");
 		try {
-			// TODO: logs out currently logged in user
-			// assuming logout works, redirect to landing:
+			await auth().signOut();
 			window.location = "/";
 		} catch (error) {
-			console.error(error);
+			console.log("Logout failed: ", error);
 		}
 	};
 
 	const invalidRoute = () => "Uh oh! Looks like that page doesn't exist :(";
 
 	return (
-		<div id="app">
+		<div
+			id="app"
+			style={{
+				backgroundImage: `url(${Background})`,
+				opacity: "95%",
+			}}
+			className="mx-auto"
+		>
 			<Container
-				className="d-flex align-items-center justify-content-center"
+				className="mx-auto"
 				style={{ minHeight: "100vh" }}
+				id="container"
 			>
-				<div className="w-100" style={{ maxWidth: "400px" }}>
-					<Router>
-						<AuthProvider>
-							<Switch>
-								{/* <PrivateRoute exact path="/" component={Dashboard} /> */}
-								{/* <PrivateRoute path="/update-profile" component={UpdateProfile} /> */}
-								<Route path="/signup" component={Signup} />
-								<Route path="/login" component={Login} />
-								<Route path="/" exact component={Landing} />
+				<div
+					className="w-100 d-flex flex-column align-items-center justify-content-center"
+					style={{ maxWidth: "975px" }}
+				>
+					<Card className="mx-auto">
+						<Router>
+							<Card.Header id="header">
+								<Nav className="justify-content-left" activeKey="/home">
+									{!currentUser && (
+										<Nav.Item>
+											<Nav.Link as={Link} to={"/"} id="header">
+												Home
+											</Nav.Link>
+										</Nav.Item>
+									)}
+									{currentUser && (
+										<>
+											<Nav.Item>
+												<Nav.Link as={Link} to={"/dashboard"} id="header">
+													Dashboard
+												</Nav.Link>
+											</Nav.Item>
+											<Nav.Item>
+												<Nav.Link as={Link} to={"/leaderboards"} id="header">
+													Leaderboards
+												</Nav.Link>
+											</Nav.Item>
+											<Nav.Item>
+												<Nav.Link onClick={logoutUser} id="header-lo">
+													Logout
+												</Nav.Link>
+											</Nav.Item>
+										</>
+									)}
+								</Nav>
+							</Card.Header>
 
-								{/* <Route path="/forgot-password" component={ForgotPassword} /> */}
-								<PrivateRoute
-									path="/dashboard"
-									exact
-									component={TeamDashboard}
-								/>
-								<PrivateRoute
-									path="/leaderboards"
-									exact
-									component={Leaderboards}
-								/>
-								<Route component={invalidRoute} />
-							</Switch>
-						</AuthProvider>
-					</Router>
+							<Card.Body className="">
+								{/* <div className="w-100 d-flex flex-column align-items-center justify-content-center" > */}
+
+								<Switch>
+									<Route
+										path="/"
+										exact
+										render={() => <Landing currentUser={currentUser} />}
+									/>
+									<Route path="/signup" component={Signup} />
+									<Route path="/login" component={Login} />
+									<Route
+										path="/dashboard"
+										render={() => <TeamDashboard currentUser={currentUser} />}
+									/>
+									<Route
+										path="/leaderboards"
+										render={() => <Leaderboards currentUser={currentUser} />}
+									/>
+									<Route component={invalidRoute} />
+								</Switch>
+								{/* </div> */}
+							</Card.Body>
+						</Router>
+					</Card>
 				</div>
 			</Container>
 		</div>
-		// <div>
-		// <Router>
-		// 			<div className="app">
-		// 					{ !currentUser &&
-		// 						<nav className="main-nav">
-		// 							<Link to="/">Home</Link>
-		// 						</nav>
-		// 					}
-		// 					{ currentUser &&
-		// 						<nav className="main-nav">
-		// 							<Link to="/dashboard">Team Dashboard</Link>
-		// 							<Link to="/leaderboards">Leaderboards</Link>
-		// 							<a href="#!" onClick={ logoutUser }>Logout</a>
-		// 						</nav>
-		// 					}						<Switch>
-		// 					<Route path="/" exact component={ Landing } />
-		// 					<Route path="/login" exact component={ Login } />
-		// 					<Route path="/signup" exact component={ Signup } />
-
-		// 				</Switch>
-		// 			</div>
-		// 		</Router>
-		// </div>
 	);
 }

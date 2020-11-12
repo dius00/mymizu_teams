@@ -1,46 +1,56 @@
 import React, { useState, useRef } from "react";
-import { useAuth } from "../../AuthContext";
-import { useHistory } from "react-dom";
+import { useHistory } from "react-router-dom";
 import { Form, Button, Card, Alert } from "react-bootstrap";
+import { auth } from "../../firebase.js";
 
 export default function Signup() {
 	const emailRef = useRef();
 	const passwordRef = useRef();
 	const passwordConfirmRef = useRef();
-	const username = useRef();
-	const { signup } = useAuth();
-	const history = useHistory;
+	const usernameRef = useRef();
+	const history = useHistory();
 
 	const [error, setError] = useState("");
 	const [loading, setLoading] = useState(false);
 
-	async function submitSignup(e) {
-		e.preventDefault();
+	const submitSignup = async event => {
+		event.preventDefault();
+		console.log("submitting form...");
+		console.log(passwordRef.current.value, emailRef.current.value);
 
 		if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-			return setError("Passwords do not Match");
+			console.log("Passwords do not Match");
 		}
+
 		try {
 			setError("");
 			setLoading(true);
-			await signup(emailRef.current.value, passwordRef.current.value);
-			history.pushState("/");
-		} catch {
-			setError("Failed to create account");
+			await auth().createUserWithEmailAndPassword(
+				emailRef.current.value,
+				passwordRef.current.value
+			);
+			const user = await auth().currentUser;
+			await user.updateProfile({
+				displayName: usernameRef.current.value,
+			});
+			console.log("registered and logged in!");
+			history.push("/");
+		} catch (error) {
+			return setError(error.message);
 		}
 		setLoading(false);
-	}
+	};
 
 	return (
-		<Card>
+		<Card id="card">
 			<div className="text-center">
 				<img
 					id="logo"
-					src="https://static1.squarespace.com/static/5d2bebc1fc9ee70001122846/t/5dfc1ac767217d42bdd153a6/1605008796817/"
+					src="//s3.amazonaws.com/appforest_uf/f1605150684387x698733875171169100/teams_logo.png"
 				></img>
-				<h2 className="text-center mb-4" id="title">
+				<h3 className="text-center mb-4" id="title">
 					Sign up{" "}
-				</h2>
+				</h3>
 				<h6 id="label-desc">Let's save the planet together</h6>
 				{error && <Alert variant="danger">{error}</Alert>}
 				<Form onSubmit={submitSignup} className="text-left">
@@ -48,7 +58,7 @@ export default function Signup() {
 						<Form.Label id="label">mymizu username</Form.Label>
 						<Form.Control
 							type="username"
-							ref={username}
+							ref={usernameRef}
 							placeholder="Enter your mymizu username"
 						/>
 					</Form.Group>
