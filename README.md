@@ -1,5 +1,5 @@
 
-<p align="center"><img width="300" src="./build/API_logo.png" alt="App logo"></p>
+<p align="center"><img width="400" src="./build/API_logo.png" alt="App logo"></p>
 
 <p align="center">
 <img  src="https://img.shields.io/github/license/dius00/API_Night_MyMizu" alt="App logo">
