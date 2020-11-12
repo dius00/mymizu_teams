@@ -48,77 +48,74 @@ export default function App() {
 				backgroundImage: `url(${Background})`,
 				opacity: "95%",
 			}}
-			className="mx-auto"
 		>
-			<Container
-				className="mx-auto"
-				style={{ minHeight: "100vh" }}
-				id="container"
-			>
-				<div
-					className="w-100 d-flex flex-column align-items-center justify-content-center"
-					style={{ maxWidth: "975px" }}
-				>
-					<Card className="mx-auto">
-						<Router>
-							<Card.Header id="header">
-								<Nav className="justify-content-left" activeKey="/home">
-									{!currentUser && (
-										<Nav.Item>
-											<Nav.Link as={Link} to={"/"} id="header">
-												Home
-											</Nav.Link>
-										</Nav.Item>
-									)}
-									{currentUser && (
-										<>
+			<div className="container">
+				<Container style={{ minHeight: "100vh" }} id="container">
+					<div
+						className="w-100 d-flex flex-column align-items-center justify-content-center"
+						style={{ maxWidth: "975px" }}
+					>
+						<Card className="mx-auto">
+							<Router>
+								<Card.Header id="header">
+									<Nav className="justify-content-left" activeKey="/home">
+										{!currentUser && (
 											<Nav.Item>
-												<Nav.Link as={Link} to={"/dashboard"} id="header">
-													Dashboard
+												<Nav.Link as={Link} to={"/"} id="header">
+													Home
 												</Nav.Link>
 											</Nav.Item>
-											<Nav.Item>
-												<Nav.Link as={Link} to={"/leaderboards"} id="header">
-													Leaderboards
-												</Nav.Link>
-											</Nav.Item>
-											<Nav.Item>
-												<Nav.Link onClick={logoutUser} id="header-lo">
-													Logout
-												</Nav.Link>
-											</Nav.Item>
-										</>
-									)}
-								</Nav>
-							</Card.Header>
+										)}
+										{currentUser && (
+											<>
+												<Nav.Item>
+													<Nav.Link as={Link} to={"/dashboard"} id="header">
+														Dashboard
+													</Nav.Link>
+												</Nav.Item>
+												<Nav.Item>
+													<Nav.Link as={Link} to={"/leaderboards"} id="header">
+														Leaderboards
+													</Nav.Link>
+												</Nav.Item>
+												<Nav.Item>
+													<Nav.Link onClick={logoutUser} id="header-lo">
+														Logout
+													</Nav.Link>
+												</Nav.Item>
+											</>
+										)}
+									</Nav>
+								</Card.Header>
 
-							<Card.Body className="">
-								{/* <div className="w-100 d-flex flex-column align-items-center justify-content-center" > */}
+								<Card.Body className="">
+									{/* <div className="w-100 d-flex flex-column align-items-center justify-content-center" > */}
 
-								<Switch>
-									<Route
-										path="/"
-										exact
-										render={() => <Landing currentUser={currentUser} />}
-									/>
-									<Route path="/signup" component={Signup} />
-									<Route path="/login" component={Login} />
-									<Route
-										path="/dashboard"
-										render={() => <TeamDashboard currentUser={currentUser} />}
-									/>
-									<Route
-										path="/leaderboards"
-										render={() => <Leaderboards currentUser={currentUser} />}
-									/>
-									<Route component={invalidRoute} />
-								</Switch>
-								{/* </div> */}
-							</Card.Body>
-						</Router>
-					</Card>
-				</div>
-			</Container>
+									<Switch>
+										<Route
+											path="/"
+											exact
+											render={() => <Landing currentUser={currentUser} />}
+										/>
+										<Route path="/signup" component={Signup} />
+										<Route path="/login" component={Login} />
+										<Route
+											path="/dashboard"
+											render={() => <TeamDashboard currentUser={currentUser} />}
+										/>
+										<Route
+											path="/leaderboards"
+											render={() => <Leaderboards currentUser={currentUser} />}
+										/>
+										<Route component={invalidRoute} />
+									</Switch>
+									{/* </div> */}
+								</Card.Body>
+							</Router>
+						</Card>
+					</div>
+				</Container>
+			</div>
 		</div>
 	);
 }

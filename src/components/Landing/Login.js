@@ -30,7 +30,7 @@ export default function Login() {
 
 	return (
 		<div className="w-100 d-flex justify-content-center landing-container">
-			<Card className="p-4" style={{ maxWidth: "500px" }}>
+			<Card id="card">
 				<div className="text-center">
 					<img
 						id="logo"

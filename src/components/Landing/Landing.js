@@ -9,7 +9,7 @@ export default function Landing({ currentUser }) {
 
 	return (
 		<div className="w-100 d-flex justify-content-center landing-container">
-			<Card style={{ maxWidth: "500px" }}>
+			<Card id="card">
 				{/* <Card.Header>Featured</Card.Header>  */}
 				<div className="text-center">
 					<img
