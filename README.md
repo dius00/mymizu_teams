@@ -2,8 +2,6 @@
 
 <p align="center">
 <img  src="https://img.shields.io/github/license/dius00/API_Night_MyMizu" alt="App logo">
-<img  src="	https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2Fdius00%2FAPI_Night_MyMizu%2Ftree%2Fkenny" alt="Twitter">
-<img  src="	https://img.shields.io/github/stars/dius00/API_Night_MyMizu" alt="Stars count">
 <img  src="https://img.shields.io/npm/v/npm" alt="Npm version">
 </p>
 
