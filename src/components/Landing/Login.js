@@ -19,7 +19,8 @@ export default function Login() {
 				emailRef.current.value,
 				passwordRef.current.value
 			);
-			console.log("logged in!");
+      console.log("logged in!");
+      console.log(auth().currentUser.email)
 			// redirect users to dashboard once they're logged in
 			history.push("/dashboard");
 		} catch (error) {
