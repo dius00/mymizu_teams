@@ -39,8 +39,8 @@ export default function WeekyBoard({weeklySorted}) {
     )
 }
 
-
-{/* <div className="weeklyboard-container">
+{
+	/* <div className="weeklyboard-container">
          weekly
         <ListGroup>
           {teams.map((team,index) => (
@@ -50,4 +50,5 @@ export default function WeekyBoard({weeklySorted}) {
           </ListGroup.Item>)
         )}
         </ListGroup>
-      </div> */}
+      </div> */
+}

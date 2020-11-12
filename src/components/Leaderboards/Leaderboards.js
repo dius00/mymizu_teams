@@ -1,11 +1,13 @@
 import WeeklyBoard from "./WeeklyBoard";
 import MonthlyBoard from "./MonthlyBoard";
-import {Card, Nav} from 'react-bootstrap'
+import { Card, Nav } from "react-bootstrap";
 import React, { useState, useEffect } from "react";
+
 import axios from "axios"
 
 export default function Leaderboards({ currentUser }) {
-  if(!currentUser) window.location="/"
+	if (!currentUser) window.location = "/";
+
 
   const [listView, setListView] = useState("monthly");
   const [monthly, setMonthly] = useState([]);

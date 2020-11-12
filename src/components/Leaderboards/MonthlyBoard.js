@@ -1,33 +1,6 @@
-import Table from 'react-bootstrap/Table'
-import Form from 'react-bootstrap/Form'
-import React, { useState } from 'react'
-const teams = [
-  {
-      "team_name": "splashBros",
-      "members": ["kenny01123","hakuba3301","heysivani","dius00"],
-      "weekly_water": 1000,
-      "monthly_water": 5000
-    },
-    {
-      "team_name": "waterBros",
-      "members": ["kenny01123","hakuba3301","heysivani","dius00"],
-      "weekly_water": 1000,
-      "monthly_water": 10
-    },
-    {
-      "team_name": "waterFellas",
-      "members": ["kenny01123","hakuba3301","heysivani","dius00"],
-      "weekly_water": 1000,
-      "monthly_water": 10
-    },
-    {
-      "team_name": "splashBros",
-      "members": ["kenny01123","hakuba3301","heysivani","dius00"],
-      "weekly_water": 1000,
-      "monthly_water": 10
-    },
-];
-
+import Table from "react-bootstrap/Table";
+import Form from "react-bootstrap/Form";
+import React, { useState } from "react";
 
 export default function MonthlyBoard({monthlySorted}) {
   const [avgView, setAvgView] = useState(true);
@@ -63,9 +36,8 @@ export default function MonthlyBoard({monthlySorted}) {
 </Table>
 </div>
     )
+
 }
-
-
 
 // (
 //   <div className="monthlyboard-container">
