@@ -24,10 +24,18 @@ export default function TeamRegistration() {
 
 	return (
 		<div className="container-fluid">
-			<Card id="card">
+			<Card id="card" className="p-4">
 				<div className="text-center">
+        <img
+						id="logo"
+						src="//s3.amazonaws.com/appforest_uf/f1605150684387x698733875171169100/teams_logo.png"
+						alt="my mizu logo"
+					></img>
+          <h3 className="text-center mb-4" id="title">
+						Oh no!
+					</h3>
 					<h3 className="text-center mb-4" id="title">
-						Create a team
+						Create a team, and join the race!
 					</h3>
 					<Form onSubmit={submitTeam} className="text-left">
 						<Form.Group id="form">

@@ -49,13 +49,13 @@ export default function App() {
 				opacity: "95%",
 			}}
 		>
-			<div className="container">
-				<Container style={{ minHeight: "100vh" }} id="container">
+			{/* <div className="container"> */}
+				<Container style={{ minHeight: "100vh" }} className="d-flex align-items-center justify-content-center" id="container">
 					<div
 						className="w-100 d-flex flex-column align-items-center justify-content-center"
-						style={{ maxWidth: "975px" }}
+						style={{ maxWidth: "1200px" }}
 					>
-						<Card className="mx-auto">
+						<Card className="m-3 w-100 d-flex justify-content-center">
 							<Router>
 								<Card.Header id="header">
 									<Nav className="justify-content-left" activeKey="/home">
@@ -116,6 +116,6 @@ export default function App() {
 					</div>
 				</Container>
 			</div>
-		</div>
+		// </div>
 	);
 }

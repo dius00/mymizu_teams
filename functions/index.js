@@ -262,3 +262,30 @@ exports.updateMonthlyVolume = functions.https.onRequest(async (req, res) => {
     })
     res.send("done");
   });
+
+
+exports.getUserNameOnLogin = functions.https.onRequest(async (req, res) => {
+  cors(req, res, async() => {
+    if(!req.query.email) res.send('Bad Request');
+    else {
+    const userDB = db.collection("user");
+    const mm_username = await userDB.where('email','==', req.query.email).get();
+    let user = null;
+    mm_username.forEach( (obj) => user = obj.data().username);
+
+    res.send(user);
+  }})});
+
+exports.getTeamFromUser = functions.https.onRequest(async (req, res) => {
+  cors(req, res, async() => {
+    if(!req.query.member) res.send('Bad Request');
+    else {
+    const teamsDB = db.collection("teams");
+    const team = await teamsDB.where("members","array-contains", req.query.member ).get();
+    if(team.empty) res.send(false);
+  else{
+    let teamInfo = null;
+    team.forEach( (obj) => teamInfo = obj.data());
+    res.send(teamInfo);
+    }}
+  })});

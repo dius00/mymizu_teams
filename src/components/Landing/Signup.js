@@ -59,7 +59,7 @@ export default function Signup() {
 	};
 
 	return (
-		<Card id="card">
+		<Card id="card" className="p-4">
 			<div className="text-center">
 				<img
 					id="logo"

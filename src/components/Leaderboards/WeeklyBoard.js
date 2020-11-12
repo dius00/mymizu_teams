@@ -38,17 +38,3 @@ export default function WeekyBoard({weeklySorted}) {
 </div>
     )
 }
-
-{
-	/* <div className="weeklyboard-container">
-         weekly
-        <ListGroup>
-          {teams.map((team,index) => (
-          <ListGroup.Item><strong>{(index+1)}. {team.team_name}</strong><br></br>
-          Avg. bottles saved: <strong>{((team.weekly_water/500)/team.members.length)}</strong><br></br>
-          Avg. CO<small>2</small> saved: <strong>{((team.weekly_water/500)/team.members.length)*82.8} grams</strong><br></br>
-          </ListGroup.Item>)
-        )}
-        </ListGroup>
-      </div> */
-}

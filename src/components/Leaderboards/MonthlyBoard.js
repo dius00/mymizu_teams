@@ -15,7 +15,7 @@ export default function MonthlyBoard({monthlySorted}) {
     checked={avgView}
     onChange = {() => setAvgView(!avgView)}
   />
-      <Table striped bordered hover variant="dark">
+      <Table striped bordered hover variant="dark" >
   <thead>
     <tr>
       <th>#</th>
