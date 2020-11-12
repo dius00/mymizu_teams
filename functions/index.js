@@ -1,5 +1,6 @@
 const axios = require('axios')
 const functions = require("firebase-functions");
+const cors = require('cors')({origin: true});
 const admin = require("firebase-admin");
 admin.initializeApp();
 const db = admin.firestore();
@@ -10,6 +11,8 @@ exports.helloWorld = functions.https.onRequest((req, res) => {
 
 //check mymizu user
 exports.checkValidUser = functions.https.onRequest(async (req, res) => {
+  cors(req, res, async() => {
+
   const userName = req.query.name;
   console.log(userName);
   try{
@@ -24,6 +27,7 @@ exports.checkValidUser = functions.https.onRequest(async (req, res) => {
   }catch(error) {
     res.send(false)
   }
+});
 });
 
 //see user refill history 
@@ -43,6 +47,7 @@ exports.checkUserHistory = functions.https.onRequest(async (req, res) => {
 
 //getSortedTeams 
 exports.sortTeams = functions.https.onRequest(async (req, res) => {
+  cors(req, res, async() => {
   const teamRef = db.collection('teams')
   const records = await teamRef.get();
   const mapped = [];
@@ -50,6 +55,7 @@ exports.sortTeams = functions.https.onRequest(async (req, res) => {
   const week_sort = [...mapped.sort((a, b) => (b.weekly_water/b.members.length) - (a.weekly_water/a.members.length))]
   const month_sort = [...mapped.sort((a, b) => (b.monthly_water/b.members.length) - (a.monthly_water/a.members.length))]
   res.send([week_sort,month_sort]);
+})
 });
 
 //check if team exist if not creates it

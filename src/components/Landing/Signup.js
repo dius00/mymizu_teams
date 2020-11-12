@@ -1,7 +1,8 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef} from "react";
 import { useHistory } from "react-router-dom";
 import { Form, Button, Card, Alert } from "react-bootstrap";
 import { auth } from "../../firebase.js";
+import axios from "axios";
 
 export default function Signup() {
 	const emailRef = useRef();
@@ -14,17 +15,19 @@ export default function Signup() {
 	const [loading, setLoading] = useState(false);
 
 	const submitSignup = async event => {
-		event.preventDefault();
-		console.log("submitting form...");
-		console.log(passwordRef.current.value, emailRef.current.value);
+    event.preventDefault();
+    setLoading(true);
+    const {data} = await axios.get(`https://us-central1-mymizuteams.cloudfunctions.net/checkValidUser?name=${usernameRef.current.value}`);
+    if(data){
+		// console.log("submitting form...");
 
 		if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-			console.log("Passwords do not Match");
-		}
-
+			setError("Passwords do not match");
+    }
+    else{
 		try {
 			setError("");
-			setLoading(true);
+			// setLoading(true);
 			await auth().createUserWithEmailAndPassword(
 				emailRef.current.value,
 				passwordRef.current.value
@@ -38,7 +41,13 @@ export default function Signup() {
 		} catch (error) {
 			return setError(error.message);
 		}
-		setLoading(false);
+    // setLoading(false);
+  }}
+  else{
+    setError("This is not a valid mymizu username")
+  }
+  setLoading(false);
+
 	};
 
 	return (
@@ -46,7 +55,8 @@ export default function Signup() {
 			<div className="text-center">
 				<img
 					id="logo"
-					src="//s3.amazonaws.com/appforest_uf/f1605150684387x698733875171169100/teams_logo.png"
+          src="//s3.amazonaws.com/appforest_uf/f1605150684387x698733875171169100/teams_logo.png"
+          alt="my mizu teams"
 				></img>
 				<h3 className="text-center mb-4" id="title">
 					Sign up{" "}
@@ -88,7 +98,7 @@ export default function Signup() {
 						/>
 					</Form.Group>
 					<div className="text-center" id="button">
-						<Button type="submit">Sign up</Button>
+						<Button type="submit" disabled={loading}>Sign up</Button>
 					</div>
 				</Form>
 			</div>

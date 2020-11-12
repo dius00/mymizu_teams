@@ -1,33 +1,6 @@
 import Table from 'react-bootstrap/Table'
 import Form from 'react-bootstrap/Form'
 import React, { useState, useEffect } from 'react'
-const teams = [
-  {
-      "team_name": "splashBros",
-      "members": ["kenny01123","hakuba3301","heysivani","dius00"],
-      "weekly_water": 1000,
-      "monthly_water": 5000
-    },
-    {
-      "team_name": "waterBros",
-      "members": ["kenny01123","hakuba3301","heysivani","dius00"],
-      "weekly_water": 1000,
-      "monthly_water": 10
-    },
-    {
-      "team_name": "waterFellas",
-      "members": ["kenny01123","hakuba3301","heysivani","dius00"],
-      "weekly_water": 1000,
-      "monthly_water": 10
-    },
-    {
-      "team_name": "splashBros",
-      "members": ["kenny01123","hakuba3301","heysivani","dius00"],
-      "weekly_water": 1000,
-      "monthly_water": 10
-    },
-];
-
 
 export default function WeekyBoard({weeklySorted}) {
   const [avgView, setAvgView] = useState(true);
@@ -53,12 +26,12 @@ export default function WeekyBoard({weeklySorted}) {
     </tr>
   </thead>
   <tbody>
-  {teams.map((team,index) => (
+  {weeklySorted.map((team,index) => (
     <tr key={index}>
     <td>{index+1}</td>
-    <td>{team.team_name}</td>
-    <td>{avgView ? ((team.weekly_water/500)/team.members.length) : (team.weekly_water/500)}</td>
-    <td>{avgView ? ((team.weekly_water/500)/team.members.length)*82.8 : ((team.weekly_water/500)*82.8)} grams</td>
+    <td>{team.teamname}</td>
+    <td>{avgView ? ((team.weekly_water/500)/team.members.length).toFixed(1) : (team.weekly_water/500).toFixed(1)} units</td>
+    <td>{avgView ? (((team.weekly_water/500)/team.members.length)*82.8).toFixed(1) : ((team.weekly_water/500)*82.8).toFixed(1)} gr.</td>
     </tr>))}
   </tbody>
 </Table>

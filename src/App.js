@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
-import Background from "./Assets/bg4.jpg";
+import Background from "./assets/bg4.jpg";
 import Landing from "./components/Landing/Landing";
 import Login from "./components/Landing/Login";
 import Signup from "./components/Landing/Signup";

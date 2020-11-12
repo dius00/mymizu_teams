@@ -2,22 +2,21 @@ import WeeklyBoard from "./WeeklyBoard";
 import MonthlyBoard from "./MonthlyBoard";
 import {Card, Nav} from 'react-bootstrap'
 import React, { useState, useEffect } from "react";
-import { db } from "../../firebase"
-
+import axios from "axios"
 
 export default function Leaderboards({ currentUser }) {
   if(!currentUser) window.location="/"
 
   const [listView, setListView] = useState("monthly");
-  useEffect(
-    
-     () => {
-      async function test(){
-      const table = await db().ref("teams");
-      table.once("value", (data) => console.log(data.val()));
+  const [monthly, setMonthly] = useState([]);
+  const [weekly, setWeekly] = useState([]);
+  useEffect( ()=> {
+     async function getLeaderBoard() {
+       const {data} = await axios.get("https://us-central1-mymizuteams.cloudfunctions.net/sortTeams");
+       setWeekly(data[0]);
+       setMonthly(data[1]);
     }
-
-    test();
+    getLeaderBoard();
 },[]);
 
     return (
@@ -32,14 +31,14 @@ export default function Leaderboards({ currentUser }) {
       </Nav.Item>
       <Nav.Item>
         <Nav.Link href="#alltimes" disabled>
-          All Times
+          All Time
         </Nav.Link>
       </Nav.Item>
     </Nav>
   </Card.Header>
   <Card.Body>
-  { listView==="weekly" && <WeeklyBoard/>}
-  { listView==="monthly" && <MonthlyBoard/>}
+  { listView==="weekly" && <WeeklyBoard weeklySorted={weekly}/>}
+  { listView==="monthly" && <MonthlyBoard monthlySorted={monthly}/>}
   </Card.Body>
 </Card>
     )
