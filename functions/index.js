@@ -1,7 +1,6 @@
   const axios = require('axios')
   // const token = process.env.TOKEN;
 
-  const token = '7|qKwFQjE33LhkoKQg3WomPzF5zu6dHw4twHJ3upmt';
   // axios.defaults.baseURL = 'https://my-mizu-dev2-gen8n.ondigitalocean.app/dev-api'
   // axios.defaults.headers = {'Authorization': `bearer ${token}`}
 
