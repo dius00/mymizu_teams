@@ -1,7 +1,7 @@
 import React, { useState, useRef} from "react";
 import { useHistory } from "react-router-dom";
 import { Form, Button, Card, Alert } from "react-bootstrap";
-import { auth } from "../../firebase.js";
+import { auth, db } from "../../firebase.js";
 import axios from "axios";
 
 export default function Signup() {
@@ -36,12 +36,20 @@ export default function Signup() {
 			await user.updateProfile({
 				displayName: usernameRef.current.value,
 			});
-			console.log("registered and logged in!");
+      console.log("registered and logged in!");
+      // const write = {
+      //   email: user.email,
+      //   username: user.displayName,
+      // };
+      await axios.get(`https://us-central1-mymizuteams.cloudfunctions.net/addUser?email=${user.email}&user=${user.displayName}`)
+      // console.log(saveUser);
 			history.push("/");
 		} catch (error) {
+      setLoading(false);
+
 			return setError(error.message);
 		}
-    // setLoading(false);
+    setLoading(false);
   }}
   else{
     setError("This is not a valid mymizu username")
