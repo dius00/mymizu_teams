@@ -1,4 +1,4 @@
-<p align="center"><img width="100" src="./API_logo.png" alt="App logo"></a></p>
+<p align="center"><img width="100" src="./build/API_logo.png" alt="App logo"></a></p>
 
 # MyMizu Online
 
