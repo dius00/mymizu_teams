@@ -22,7 +22,15 @@ This App is server-less where firebase and firestore database services are used 
 
 <h1>Contact</h1>
 For questions and support please contact the developers:
-<li href="https://github.com/dius00">Antonio</li>
-<li href="https://github.com/kenny01123">Kenny</li>
-<li href="https://github.com/heysivani">Sivani</li>
-<li href="https://github.com/dhequex">Jose</li>
+<p> Tech Lead:
+<a href="https://github.com/dius00">Antonio</a>
+</p>
+<p> Back-End, Database developer:
+<a href="https://github.com/kenny01123">Kenny</a>
+</p>
+<p> Front-End, Authorization developer:
+<a href="https://github.com/heysivani">Sivani</a>
+</p>
+<p> Front-End, Authorization developer:
+<a href="https://github.com/dhequex">Jose</a>
+</p>
