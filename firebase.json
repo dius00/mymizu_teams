@@ -1,6 +1,7 @@
 {
-  "database": {
-    "rules": "database.rules.json"
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
   },
   "functions": {
     "predeploy": [
@@ -28,8 +29,8 @@
     "functions": {
       "port": 5001
     },
-    "database": {
-      "port": 9000
+    "firestore": {
+      "port": 8080
     },
     "hosting": {
       "port": 5000
@@ -37,8 +38,5 @@
     "ui": {
       "enabled": true
     }
-  },
-  "remoteconfig": {
-    "template": "remoteconfig.template.json"
   }
 }

@@ -8,7 +8,7 @@ export default function TeamDashboard() {
     const team = true; // just for testing, remove later :)
 
     return (
-        <div className="teamdashboard-container">
+      <div className="w-100 d-flex justify-content-center teamdashboard-container">
             <h1>Team Dashboard</h1>
             { !team &&
                 <TeamRegistration />
