@@ -1,5 +1,6 @@
 const axios = require('axios')
 const functions = require("firebase-functions");
+const cors = require('cors')({origin: true});
 const admin = require("firebase-admin");
 admin.initializeApp();
 const db = admin.firestore();
@@ -10,6 +11,7 @@ exports.helloWorld = functions.https.onRequest((req, res) => {
 
 //check mymizu user
 exports.checkValidUser = functions.https.onRequest(async (req, res) => {
+  cors(req, res, async() => {
   const userName = req.query.name;
   console.log(userName);
   try{
@@ -25,6 +27,20 @@ exports.checkValidUser = functions.https.onRequest(async (req, res) => {
     res.send(false)
   }
 });
+});
+exports.addUser = functions.https.onRequest(async (req, res) => {
+  cors(req, res, async() => {
+    try{
+    const write = {
+      email: req.query.email,
+      username: req.query.user
+    }
+    const save = await db.collection('user').add(write);
+    res.send(save);
+  } catch (error) {
+    res.send(error);
+  }})
+})
 
 //see user refill history 
 exports.checkUserHistory = functions.https.onRequest(async (req, res) => {
@@ -43,6 +59,7 @@ exports.checkUserHistory = functions.https.onRequest(async (req, res) => {
 
 //getSortedTeams 
 exports.sortTeams = functions.https.onRequest(async (req, res) => {
+  cors(req, res, async() => {
   const teamRef = db.collection('teams')
   const records = await teamRef.get();
   const mapped = [];
@@ -50,15 +67,37 @@ exports.sortTeams = functions.https.onRequest(async (req, res) => {
   const week_sort = [...mapped.sort((a, b) => (b.weekly_water/b.members.length) - (a.weekly_water/a.members.length))]
   const month_sort = [...mapped.sort((a, b) => (b.monthly_water/b.members.length) - (a.monthly_water/a.members.length))]
   res.send([week_sort,month_sort]);
+})
 });
 
 //check if team exist if not creates it
-exports.checkTeam = functions.https.onRequest(async (req, res) => {
+exports.checkTeamAndCreate = functions.https.onRequest(async (req, res) => {
+  cors(req, res, async() => {
+    let invalid = true;
+    const users = req.body;
+    console.log(users);
+
+    for(const user in users){
+      try{
+      // eslint-disable-next-line no-await-in-loop
+      const { data } = await axios({
+        method: 'get',
+        url: `https://my-mizu-dev2-gen8n.ondigitalocean.app/dev-api/users/byUsername?username=${userName}`,
+        headers: {
+          'Authorization': `Bearer ${functions.config().mymizu.key}`//${functions.config().mymizu.key}`
+        },
+      });
+    } catch(error) 
+    {
+      invalid = false;
+      res.send(`${user} is not a valid My Mizu User`)
+  }}
   const team_name = req.query.name;
-  console.log(team_name);
+
+  if(!invalid){
   const teamRef = db.collection('teams');
   const record = await teamRef.where('teamname','==', team_name).get();
-  if(!record.empty) res.send("A team with that name already exists");
+  if(!record.empty) res.send("A team with that name already exists!");
   else{
     const createTeam = {
       teamname: team_name,
@@ -67,8 +106,9 @@ exports.checkTeam = functions.https.onRequest(async (req, res) => {
       monthly_water: 0,
     };
     teamRef.add(createTeam)
-    res.send(record.empty);
-  }});
+    res.send("Your team has been created!");
+  }}});
+});
 
 // seeding 
 exports.seed = functions.https.onRequest(async (req, res) => {
