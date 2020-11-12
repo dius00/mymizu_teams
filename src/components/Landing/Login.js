@@ -28,7 +28,7 @@ export default function Login() {
         displayName: displayName.data,
 			});
 			// redirect users to dashboard once they're logged in
-			history.push("/dashboard");
+			history.push("/");
 		} catch (error) {
 			console.log(error);
 			setError(error.message.split(".")[0] + ".");

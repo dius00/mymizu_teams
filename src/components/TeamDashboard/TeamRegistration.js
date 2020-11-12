@@ -20,12 +20,13 @@ export default function TeamRegistration() {
       username3Ref.current.value && members.push(username3Ref.current.value)
       username4Ref.current.value && members.push(username4Ref.current.value)
       username5Ref.current.value && members.push(username5Ref.current.value)
+      console.log(members)
       const test = teamNameRef.current.value;
       console.log(test)
       await axios.get({
         method: 'GET',
         url: `http://localhost:5001/mymizuteams/us-central1/checkTeamAndCreate?name=${test}`,
-        data: [members],
+        data: {test: [members]}
       })
 			// TODO:
 			// verify all usernames exist

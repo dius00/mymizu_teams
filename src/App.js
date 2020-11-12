@@ -58,29 +58,29 @@ export default function App() {
 						<Card className="m-3 w-100 d-flex justify-content-center">
 							<Router>
 								<Card.Header id="header">
-									<Nav className="justify-content-left" activeKey="/home">
-										{!currentUser && (
+									<Nav className="justify-content-center" activeKey="/home">
+										{/* {!currentUser && ( */}
 											<Nav.Item>
 												<Nav.Link as={Link} to={"/"} id="header">
-													Home
+													<strong>Home</strong>
 												</Nav.Link>
 											</Nav.Item>
-										)}
+										{/* // )} */}
 										{currentUser && (
 											<>
 												<Nav.Item>
 													<Nav.Link as={Link} to={"/dashboard"} id="header">
-														Dashboard
+														<strong>Dashboard</strong>
 													</Nav.Link>
 												</Nav.Item>
 												<Nav.Item>
 													<Nav.Link as={Link} to={"/leaderboards"} id="header">
-														Leaderboards
+                          <strong>Leaderboards</strong>
 													</Nav.Link>
 												</Nav.Item>
 												<Nav.Item>
 													<Nav.Link onClick={logoutUser} id="header-lo">
-														Logout
+                          <strong>Logout</strong>
 													</Nav.Link>
 												</Nav.Item>
 											</>
