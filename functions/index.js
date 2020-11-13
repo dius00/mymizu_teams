@@ -101,7 +101,7 @@ exports.checkTeamAndCreate = functions.https.onRequest(async (req, res) => {
   }}
   const team_name = req.query.name;
 
-  if(!invalid){
+  if(invalid){
   const teamRef = db.collection('teams');
   const record = await teamRef.where('teamname','==', team_name).get();
   if(!record.empty) res.send("A team with that name already exists!");
