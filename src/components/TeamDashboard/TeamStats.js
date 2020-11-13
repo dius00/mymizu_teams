@@ -47,7 +47,7 @@ export default function TeamStats({teamStats}) {
         
 				{statsView === "avg" && (
 					<span className="d-flex flex-row justify-content-around align-items-center">
-            <div className="d-flex flex-column justify-content-center align-items-center text-white" style={{
+            <div className="d-flex flex-column justify-content-center align-items-center text-white m-2" style={{
              height:"400px",
              width:"400px",
              backgroundImage: `url(${sea})`,
@@ -58,7 +58,7 @@ export default function TeamStats({teamStats}) {
               <h1 >Bottles saved </h1>
               <h1>{((teamStats.weekly_water/500)/teamStats.members.length).toFixed(1)}</h1>
            </div>
-           <div className="d-flex flex-column justify-content-center align-items-center text-white" style={{
+           <div className="d-flex flex-column justify-content-center align-items-center text-white m-2" style={{
              height:"400px",
              width:"400px",
              backgroundImage: `url(${forest})`,
@@ -72,7 +72,7 @@ export default function TeamStats({teamStats}) {
 				)}
 				{statsView === "total" && (
 					<span className="d-flex flex-row justify-content-around align-items-center">
-            <div className="d-flex flex-column justify-content-center align-items-center text-white" style={{
+            <div className="d-flex flex-column justify-content-center align-items-center text-white m-2" style={{
              height:"400px",
              width:"400px",
              backgroundImage: `url(${sea})`,
@@ -83,7 +83,7 @@ export default function TeamStats({teamStats}) {
               <h1>Bottles saved </h1>
               <h1>{(teamStats.weekly_water/500).toFixed(1)}</h1>
            </div>
-           <div className="d-flex flex-column justify-content-center align-items-center text-white" style={{
+           <div className="d-flex flex-column justify-content-center align-items-center text-white m-2" style={{
              height:"400px",
              width:"400px",
              backgroundImage: `url(${forest})`,

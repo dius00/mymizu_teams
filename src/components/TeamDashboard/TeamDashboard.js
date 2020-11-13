@@ -24,7 +24,7 @@ export default function TeamDashboard({currentUser}) {
 
 	return (
 		<div className="container">
-		{ !teamStats && <TeamRegistration /> }
+		{ !teamStats && <TeamRegistration currentUser={currentUser}/> }
     { teamStats && <TeamStats teamStats={teamStats}/> }
 
 		</div>
