@@ -242,7 +242,7 @@ exports.getUserWeeklyVolume = functions.https.onRequest(async (req, res) => {
         if(member) {
           try{
         // eslint-disable-next-line no-await-in-loop
-        const {data}= await axios.get(`http://localhost:5001/mymizuteams/us-central1/getUserWeeklyVolume?name=${member}`)
+        const {data}= await axios.get(`https://us-central1-mymizuteams.cloudfunctions.net/getUserWeeklyVolume?name=${member}`)
         result+=data;
       }catch(error) {console.log(error)}
       }}
@@ -261,7 +261,7 @@ exports.updateMonthlyVolume = functions.https.onRequest(async (req, res) => {
       if(member) {
         try{
       // eslint-disable-next-line no-await-in-loop
-      const {data}= await axios.get(`http://localhost:5001/mymizuteams/us-central1/getUserMonthlyVolume?name=${member}`)
+      const {data}= await axios.get(`https://us-central1-mymizuteams.cloudfunctions.net/getUserMonthlyVolume?name=${member}`)
       result+=data;
     }catch(error) {console.log(error)}
     }}
