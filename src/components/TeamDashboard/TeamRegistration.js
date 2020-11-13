@@ -1,14 +1,22 @@
-import React, { useRef } from "react";
-import { Form, Button, Card, Alert } from "react-bootstrap";
+import React, { useRef, useState } from "react";
+import { Form, Button, Card, Alert, Modal } from "react-bootstrap";
 import axios from "axios"
-export default function TeamRegistration() {
+
+
+
+
+export default function TeamRegistration({currentUser}) {
+
 	const teamNameRef = useRef();
 	const username1Ref = useRef();
 	const username2Ref = useRef();
 	const username3Ref = useRef();
 	const username4Ref = useRef();
-	const username5Ref = useRef();
-
+  const username5Ref = useRef();
+  
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 	const submitTeam = async event => {
 		event.preventDefault();
 		console.log("submitting team form...");
@@ -34,8 +42,100 @@ export default function TeamRegistration() {
 		} catch (error) {
 			return console.log(error.message);
 		}
-	};
+  };
+  return (
+  <div className="container-fluid">
+  <div className="text-center">
+  <Card id="card" >
+				{/* <Card.Header>Featured</Card.Header>  */}
+				<div className="text-center">
+					<img
+						id="logo"
+						src="//s3.amazonaws.com/appforest_uf/f1605150684387x698733875171169100/teams_logo.png"
+						alt="my mizu logo"
+					></img>
+					<Card.Body>
+              <Card.Title id="title">Welcome to mymizu teams{currentUser && <p><h2><strong> {currentUser.displayName}</strong></h2></p>}</Card.Title>
+							<Card.Text id="label-desc">
+                Create a team and get started
+							</Card.Text>
+    <Button variant="primary" onClick={handleShow} id="submit_button">
+      Create Your Team
+    </Button>
+    
+    </Card.Body>
+    </div>
+    </Card>
 
+<Modal centered show={show} onHide={handleClose}>
+    <Modal.Header closeButton>
+      <Modal.Title>Create Your Team</Modal.Title>
+    </Modal.Header>
+    <Modal.Body>
+
+    <Form onSubmit={submitTeam} className="text-left">
+      <Form.Group id="form">
+        <Form.Label id="label">Team name</Form.Label>
+        <Form.Control
+          type="username"
+          ref={teamNameRef}
+          placeholder="Enter a team name"
+        />
+      </Form.Group>
+      <Form.Group id="form">
+        <Form.Label id="label">Team admin</Form.Label>
+        <Form.Control
+          type="username"
+          ref={username1Ref}
+          placeholder="Enter your mymizu username"
+        />
+      </Form.Group>
+      <Form.Group id="form">
+        <Form.Label id="label">Teammates</Form.Label>
+        <Form.Control
+          type="username"
+          ref={username2Ref}
+          placeholder="Enter a teammate's username"
+        />
+      </Form.Group>
+      <Form.Group id="form">
+        <Form.Control
+          type="username"
+          ref={username3Ref}
+          placeholder="Enter a teammate's username"
+        />
+      </Form.Group>
+      <Form.Group id="form">
+        <Form.Control
+          type="username"
+          ref={username4Ref}
+          placeholder="Enter a teammate's username"
+        />
+      </Form.Group>
+      <Form.Group id="form">
+        <Form.Control
+          type="username"
+          ref={username5Ref}
+          placeholder="Enter a teammate's username"
+        />
+      </Form.Group>
+      <div className="text-center" id="button">
+        <Button  variant="primary" type="submit" id="form_button" >Create team</Button>
+  <Button  variant="secondary" onClick={handleClose}  id="form_button" >
+        Close
+      </Button>
+      </div>
+    </Form>
+</Modal.Body>
+</Modal>
+  </div>
+
+
+
+</div>
+);
+}
+/*
 	return (
 		<div className="container-fluid">
 			<Card id="card" className="p-4">
@@ -106,3 +206,4 @@ export default function TeamRegistration() {
 		</div>
 	);
 }
+*/
