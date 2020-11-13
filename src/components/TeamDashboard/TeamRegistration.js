@@ -119,9 +119,9 @@ export default function TeamRegistration({currentUser}) {
           placeholder="Enter a teammate's username"
         />
       </Form.Group>
-      <div className="text-center" id="button">
-        <Button  variant="primary" type="submit" id="form_button" >Create team</Button>
-  <Button  variant="secondary" onClick={handleClose}  id="form_button" >
+      <div className="d-flex justify-content-center landing-container" id="button">
+        <Button className="m-2" variant="primary" type="submit" id="form_button" >Create team</Button>
+        <Button className="m-2" variant="secondary" onClick={handleClose}  id="form_button" >
         Close
       </Button>
       </div>
