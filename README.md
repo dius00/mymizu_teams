@@ -1,11 +1,11 @@
 
-<p align="center"><img width="400" src="./build/API_logo.png" alt="App logo"></p>
+<p align="center"><img width="400" src="//s3.amazonaws.com/appforest_uf/f1605150684387x698733875171169100/teams_logo.png" alt="App logo"></p>
 
 <p align="center">
 <img  src="https://img.shields.io/github/license/dius00/API_Night_MyMizu" alt="App logo">
 <img  src="https://img.shields.io/npm/v/npm" alt="Npm version">
 </p>
-<h1>Table of Contect</h1>
+<h1>Table of Content</h1>
 <h4><a href="#intro"> 1.Introduction </a></h4>
 <h4><a href="#user_guide"> 2.User Guide </a></h4>
 <h4><a href="#tech_stack"> 3.Tech Stack </a></h4>
