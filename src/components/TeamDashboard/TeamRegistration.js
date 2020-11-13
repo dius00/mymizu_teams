@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
-
+import axios from "axios"
 export default function TeamRegistration() {
 	const teamNameRef = useRef();
 	const username1Ref = useRef();
@@ -14,6 +14,20 @@ export default function TeamRegistration() {
 		console.log("submitting team form...");
 
 		try {
+      const members = [];
+      username1Ref.current.value && members.push(username1Ref.current.value)
+      username2Ref.current.value && members.push(username2Ref.current.value)
+      username3Ref.current.value && members.push(username3Ref.current.value)
+      username4Ref.current.value && members.push(username4Ref.current.value)
+      username5Ref.current.value && members.push(username5Ref.current.value)
+      console.log(members)
+      const test = teamNameRef.current.value;
+      console.log(test)
+      await axios.get({
+        method: 'GET',
+        url: `http://localhost:5001/mymizuteams/us-central1/checkTeamAndCreate?name=${test}`,
+        data: {test: [members]}
+      })
 			// TODO:
 			// verify all usernames exist
 			// submit team info to our db
@@ -24,10 +38,18 @@ export default function TeamRegistration() {
 
 	return (
 		<div className="container-fluid">
-			<Card id="card">
+			<Card id="card" className="p-4">
 				<div className="text-center">
+        <img
+						id="logo"
+						src="//s3.amazonaws.com/appforest_uf/f1605150684387x698733875171169100/teams_logo.png"
+						alt="my mizu logo"
+					></img>
+          <h3 className="text-center mb-4" id="title">
+						Oh no, you are currently not in a team!
+					</h3>
 					<h3 className="text-center mb-4" id="title">
-						Create a team
+						Create one, and join the race!
 					</h3>
 					<Form onSubmit={submitTeam} className="text-left">
 						<Form.Group id="form">

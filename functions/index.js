@@ -72,26 +72,28 @@ exports.sortTeams = functions.https.onRequest(async (req, res) => {
 
 //check if team exist if not creates it
 exports.checkTeamAndCreate = functions.https.onRequest(async (req, res) => {
-  cors(req, res, async() => {
-    let invalid = true;
-    const users = req.body;
-    console.log(users);
 
-    for(const user in users){
-      try{
-      // eslint-disable-next-line no-await-in-loop
-      const { data } = await axios({
-        method: 'get',
-        url: `https://my-mizu-dev2-gen8n.ondigitalocean.app/dev-api/users/byUsername?username=${userName}`,
-        headers: {
-          'Authorization': `Bearer ${functions.config().mymizu.key}`//${functions.config().mymizu.key}`
-        },
-      });
-    } catch(error) 
-    {
-      invalid = false;
-      res.send(`${user} is not a valid My Mizu User`)
-  }}
+  cors(req, res, async() => {
+    let invalid = false;
+  //   // console.log(req.body);
+  //   const users = req.data;
+  //   console.log(users);
+
+  //   for(const user in users){
+  //     try{
+  //     // eslint-disable-next-line no-await-in-loop
+  //     const { data } = await axios({
+  //       method: 'get',
+  //       url: `https://my-mizu-dev2-gen8n.ondigitalocean.app/dev-api/users/byUsername?username=${userName}`,
+  //       headers: {
+  //         'Authorization': `Bearer ${functions.config().mymizu.key}`//${functions.config().mymizu.key}`
+  //       },
+  //     });
+  //   } catch(error) 
+  //   {
+  //     invalid = false;
+  //     res.send(`${user} is not a valid My Mizu User`)
+  // }}
   const team_name = req.query.name;
 
   if(!invalid){
@@ -101,7 +103,7 @@ exports.checkTeamAndCreate = functions.https.onRequest(async (req, res) => {
   else{
     const createTeam = {
       teamname: team_name,
-      members: [],
+      members: ['insert me here'],
       weekly_water: 0,
       monthly_water: 0,
     };
@@ -262,3 +264,30 @@ exports.updateMonthlyVolume = functions.https.onRequest(async (req, res) => {
     })
     res.send("done");
   });
+
+
+exports.getUserNameOnLogin = functions.https.onRequest(async (req, res) => {
+  cors(req, res, async() => {
+    if(!req.query.email) res.send('Bad Request');
+    else {
+    const userDB = db.collection("user");
+    const mm_username = await userDB.where('email','==', req.query.email).get();
+    let user = null;
+    mm_username.forEach( (obj) => user = obj.data().username);
+
+    res.send(user);
+  }})});
+
+exports.getTeamFromUser = functions.https.onRequest(async (req, res) => {
+  cors(req, res, async() => {
+    if(!req.query.member) res.send('Bad Request');
+    else {
+    const teamsDB = db.collection("teams");
+    const team = await teamsDB.where("members","array-contains", req.query.member ).get();
+    if(team.empty) res.send(false);
+  else{
+    let teamInfo = null;
+    team.forEach( (obj) => teamInfo = obj.data());
+    res.send(teamInfo);
+    }}
+  })});

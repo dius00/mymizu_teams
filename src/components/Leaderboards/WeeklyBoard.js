@@ -6,12 +6,14 @@ export default function WeekyBoard({weeklySorted}) {
   const [avgView, setAvgView] = useState(true);
   // useEffect(()=>setAvgView(true),[]);
     return (
-      <div>
+      <div className="d-flex flex-column align-items-center">
+                <p><strong>Teams are ranked based on per person average.</strong></p>
+
       <Form.Check 
           className="pb-3"
           type="switch"
           id="custom-switch"
-          label="Toogle Average/Total view"
+          label="Select to toggle global team statistics"
           checked={avgView}
           onChange = {() => setAvgView(!avgView)}
           />
@@ -37,18 +39,4 @@ export default function WeekyBoard({weeklySorted}) {
 </Table>
 </div>
     )
-}
-
-{
-	/* <div className="weeklyboard-container">
-         weekly
-        <ListGroup>
-          {teams.map((team,index) => (
-          <ListGroup.Item><strong>{(index+1)}. {team.team_name}</strong><br></br>
-          Avg. bottles saved: <strong>{((team.weekly_water/500)/team.members.length)}</strong><br></br>
-          Avg. CO<small>2</small> saved: <strong>{((team.weekly_water/500)/team.members.length)*82.8} grams</strong><br></br>
-          </ListGroup.Item>)
-        )}
-        </ListGroup>
-      </div> */
 }

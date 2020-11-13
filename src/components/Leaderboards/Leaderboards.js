@@ -6,7 +6,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios"
 
 export default function Leaderboards({ currentUser }) {
-	if (!currentUser) window.location = "/";
+	if (!currentUser) window.location = "/404";
 
 
   const [listView, setListView] = useState("monthly");
@@ -22,7 +22,13 @@ export default function Leaderboards({ currentUser }) {
 },[]);
 
     return (
-      <Card className="mt-4 mr-2 ml-2 mb-2" >
+      <Card className="w-100 ">
+         <div className="text-center">
+        <img
+						id="logo"
+						src="//s3.amazonaws.com/appforest_uf/f1605150684387x698733875171169100/teams_logo.png"
+						alt="my mizu logo"
+					></img></div>
   <Card.Header>
   <Nav fill variant="tabs" defaultActiveKey="#monthly" >
       <Nav.Item>
@@ -38,7 +44,7 @@ export default function Leaderboards({ currentUser }) {
       </Nav.Item>
     </Nav>
   </Card.Header>
-  <Card.Body>
+  <Card.Body class="align-items-center justify-content-center overflow-auto p-3">
   { listView==="weekly" && <WeeklyBoard weeklySorted={weekly}/>}
   { listView==="monthly" && <MonthlyBoard monthlySorted={monthly}/>}
   </Card.Body>

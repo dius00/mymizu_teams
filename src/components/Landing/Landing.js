@@ -5,11 +5,11 @@ import { Card, Button } from "react-bootstrap";
 // import Signup from "./Signup";
 
 export default function Landing({ currentUser }) {
-	if (currentUser) window.location = "/dashboard";
+	// if (currentUser) window.location = "/dashboard";
 
 	return (
 		<div className="w-100 d-flex justify-content-center landing-container">
-			<Card id="card">
+			<Card id="card" >
 				{/* <Card.Header>Featured</Card.Header>  */}
 				<div className="text-center">
 					<img
@@ -18,12 +18,10 @@ export default function Landing({ currentUser }) {
 						alt="my mizu logo"
 					></img>
 					<Card.Body>
-						<h3>
-							<Card.Title id="title">Welcome to mymizu teams</Card.Title>
-						</h3>
+              <Card.Title id="title">Welcome to mymizu teams{currentUser && <strong> {currentUser.displayName}!</strong>}</Card.Title>
 						{currentUser && (
 							<Card.Text id="label-desc">
-								Welcome back <strong>{currentUser.displayName}</strong>
+                click on a tab to get started
 							</Card.Text>
 						)}
 						{!currentUser && (

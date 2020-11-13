@@ -6,16 +6,17 @@ export default function MonthlyBoard({monthlySorted}) {
   const [avgView, setAvgView] = useState(true);
 
     return (
-      <div>
+      <div className="d-flex flex-column align-items-center">
+        <p><strong>Teams are ranked based on per person average.</strong></p>
 <Form.Check 
     className="pb-3"
     type="switch"
     id="custom-switch"
-    label="Toogle Average/Total view"
+    label="Select to toggle global team statistics"
     checked={avgView}
     onChange = {() => setAvgView(!avgView)}
   />
-      <Table striped bordered hover variant="dark">
+      <Table striped bordered hover variant="dark" >
   <thead>
     <tr>
       <th>#</th>
