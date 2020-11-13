@@ -14,13 +14,16 @@ export default function TeamRegistration({currentUser}) {
 	const username4Ref = useRef();
   const username5Ref = useRef();
   
+  const [alert, setAlert] = useState("");
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-	const submitTeam = async event => {
-		event.preventDefault();
-		console.log("submitting team form...");
 
+	const submitTeam = async event => {
+    event.preventDefault();
+    // setError("");
+
+		console.log("submitting team form...");
 		try {
       const members = [];
       username1Ref.current.value && members.push(username1Ref.current.value)
@@ -28,19 +31,25 @@ export default function TeamRegistration({currentUser}) {
       username3Ref.current.value && members.push(username3Ref.current.value)
       username4Ref.current.value && members.push(username4Ref.current.value)
       username5Ref.current.value && members.push(username5Ref.current.value)
-      console.log(members)
       const test = teamNameRef.current.value;
-      console.log(test)
-      await axios.get({
-        method: 'GET',
+      const res = await axios({
+        method: 'POST',
         url: `http://localhost:5001/mymizuteams/us-central1/checkTeamAndCreate?name=${test}`,
-        data: {test: [members]}
-      })
+        data: members,
+      });
+      const message = String(res.data);
+      console.log(message, !message === "Your team has been created!");
+
+      if(!message === "Your team has been created!") {
+        setAlert(message);
+        console.log("here")
+      }
+
 			// TODO:
 			// verify all usernames exist
 			// submit team info to our db
 		} catch (error) {
-			return console.log(error.message);
+      console.log(error)
 		}
   };
   return (
@@ -55,9 +64,11 @@ export default function TeamRegistration({currentUser}) {
 						alt="my mizu logo"
 					></img>
 					<Card.Body>
+
               <Card.Title id="title">Welcome to mymizu teams{currentUser && <p><h2><strong> {currentUser.displayName}</strong></h2></p>}</Card.Title>
 							<Card.Text id="label-desc">
                 Create a team and get started
+                
 							</Card.Text>
     <Button variant="primary" onClick={handleShow} id="submit_button">
       Create Your Team
@@ -72,7 +83,9 @@ export default function TeamRegistration({currentUser}) {
       <Modal.Title>Create Your Team</Modal.Title>
     </Modal.Header>
     <Modal.Body>
-
+      <div>
+    {alert && <Alert variant="danger">{alert}</Alert>}
+    </div>
     <Form onSubmit={submitTeam} className="text-left">
       <Form.Group id="form">
         <Form.Label id="label">Team name</Form.Label>
