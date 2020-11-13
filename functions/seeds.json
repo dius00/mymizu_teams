@@ -1,0 +1,39 @@
+{
+    "users": [
+        {
+          "user_name": "Kenny",
+          "mm_user_name": "kenny01123",
+          "last_refill_id": 10
+        },
+        {
+          "user_name": "Jose",
+          "mm_user_name": "hakuba3301",
+          "last_refill_id": 20
+        },
+        {
+          "user_name": "Sivani",
+          "mm_user_name": "heysivani",
+          "last_refill_id": 25
+        },
+        {
+          "user_name": "Antonio",
+          "mm_user_name": "dius00",
+          "last_refill_id": 19
+        }
+      ],
+    "teams": [
+        {
+            "team_name": "splashBros",
+            "members": ["kenny01123","hakuba3301","heysivani","dius00"],
+            "weekly_water": 1000,
+            "monthly_water": 10
+          },
+          {
+            "team_name": "lorenzo",
+            "members": ["lorenzo"],
+            "weekly_water": 10,
+            "monthly_water": 10
+          }
+          
+    ]
+  }

@@ -1,0 +1,118 @@
+#logo {
+	width: 50%;
+	/* height: auto; */
+	/* justify-content: center; */
+}
+
+#app {
+	background-color: #2e98d1;
+	/* border: 1px solid rgb(255, 255, 255); */
+	/* align-items: center;
+	justify-content: center;
+	flex-direction: center; */
+}
+
+#team-stats-image {
+	/* width: 20px; */
+	/* border: 1px solid rgb(255, 255, 255); */
+	/* align-items: center;
+	justify-content: center;
+	flex-direction: center; */
+}
+
+#form {
+	/* width: auto;
+	margin-left: 20px;
+	margin-right: 20px;
+	padding-left: auto; */
+	font-family: futura-pt, sans-serif;
+	font-weight: 400;
+	font-style: normal;
+}
+#button {
+	font-size: large;
+	padding-bottom: 20px;
+	padding-top: 20px;
+	font-family: futura-pt, sans-serif;
+	font-weight: 400;
+	font-style: normal;
+	color: #dfeef5;
+}
+
+#label {
+	font-family: futura-pt, sans-serif;
+	font-weight: 400;
+	font-style: normal;
+	color: #2d383f;
+}
+#card {
+	/* width: auto; */
+	font-family: futura-pt, sans-serif;
+	font-weight: 400;
+	/* font-style: normal;
+	justify-content: center;
+	display: inline; */
+}
+
+#div-inline {
+	/* width: 50%; */
+	font-family: futura-pt, sans-serif;
+	font-weight: 400;
+	/* font-style: normal;
+	justify-content: center;
+	display: inline-block; */
+}
+
+#container {
+	/* margin-top: 100px;
+	width: 800px;
+	max-width: 800px;
+	width: auto; */
+	font-family: futura-pt, sans-serif;
+	font-weight: 400;
+	font-style: normal;
+}
+
+#body {
+	font-family: futura-pt, sans-serif;
+	font-weight: 400;
+	font-style: normal;
+	color: #2d383f;
+}
+
+#header {
+	background-color: #2e98d1;
+	font-weight: 400;
+	align-items: left;
+	font-family: futura-pt, sans-serif;
+	color: #dfeef5;
+}
+
+#header-lo {
+	background-color: #2e98d1;
+	font-weight: 400;
+	/* align-items: right; */
+	font-family: futura-pt, sans-serif;
+	color: #dfeef5;
+}
+
+#title {
+	font-family: futura-pt, sans-serif;
+	font-weight: 700;
+	font-style: normal;
+	color: #2d383f;
+}
+#label-desc {
+	font-family: futura-pt, sans-serif;
+	font-weight: 700;
+	/* font-style: italic; */
+	color: #2d383f;
+}
+
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:visited {
+	background-color: #2e98d1 !important;
+	border: #2e98d1 !important;
+}
