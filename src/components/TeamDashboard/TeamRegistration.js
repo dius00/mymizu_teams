@@ -16,15 +16,20 @@ export default function TeamRegistration({currentUser}) {
   
   const [alert, setAlert] = useState("");
   const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
 	const submitTeam = async event => {
     event.preventDefault();
+    setLoading(true);
+
     // setError("");
 
 		console.log("submitting team form...");
 		try {
+      
       const members = [];
       username1Ref.current.value && members.push(username1Ref.current.value)
       username2Ref.current.value && members.push(username2Ref.current.value)
@@ -34,15 +39,15 @@ export default function TeamRegistration({currentUser}) {
       const test = teamNameRef.current.value;
       const res = await axios({
         method: 'POST',
-        url: `http://localhost:5001/mymizuteams/us-central1/checkTeamAndCreate?name=${test}`,
+        url: `https://us-central1-mymizuteams.cloudfunctions.net/checkTeamAndCreate?name=${test}`,
         data: members,
       });
-      const message = String(res.data);
-      console.log(message, !message === "Your team has been created!");
-
-      if(!message === "Your team has been created!") {
-        setAlert(message);
-        console.log("here")
+      const message = await String(res.data);
+      console.log(message, message !== "Your team has been created!");
+      if(message !== "Your team has been created!") setAlert(message);
+      else {
+        console.log("here");
+        window.location = "/"
       }
 
 			// TODO:
@@ -50,7 +55,9 @@ export default function TeamRegistration({currentUser}) {
 			// submit team info to our db
 		} catch (error) {
       console.log(error)
-		}
+    }
+    setLoading(false);
+
   };
   return (
   <div className="container-fluid">
@@ -70,7 +77,7 @@ export default function TeamRegistration({currentUser}) {
                 Create a team and get started
                 
 							</Card.Text>
-    <Button variant="primary" onClick={handleShow} id="submit_button">
+    <Button variant="primary" disabled={loading} onClick={handleShow} id="submit_button">
       Create Your Team
     </Button>
     
@@ -133,7 +140,7 @@ export default function TeamRegistration({currentUser}) {
         />
       </Form.Group>
       <div className="d-flex justify-content-center landing-container" id="button">
-        <Button className="m-2" variant="primary" type="submit" id="form_button" >Create team</Button>
+        <Button className="m-2" variant="primary" disabled={loading} type="submit" id="form_button" >Create team</Button>
         <Button className="m-2" variant="secondary" onClick={handleClose}  id="form_button" >
         Close
       </Button>

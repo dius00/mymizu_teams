@@ -23,8 +23,8 @@ export default function WeekyBoard({weeklySorted}) {
     <tr>
       <th>#</th>
       <th>Team Name</th>
-      <th>{avgView ? "Avg." : "Total" } bottles saved</th>
-      <th>{avgView ? "Avg." : "Total" } CO<small><strong>2</strong></small> saved</th>
+      <th>{avgView ? "Bottles saved per person" : "Total bottles saved" } </th>
+      <th>CO<small><strong>2</strong></small> saved {avgView ? "per person" : "in total" } </th>
     </tr>
   </thead>
   <tbody>

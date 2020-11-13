@@ -88,7 +88,7 @@ exports.checkTeamAndCreate = functions.https.onRequest(async (req, res) => {
         method: 'get',
         url: `https://my-mizu-dev2-gen8n.ondigitalocean.app/dev-api/users/byUsername?username=${user}`,
         headers: {
-          'Authorization': `Bearer 8|PXsa6gAg0ptkiSFpxWVUlPlKj6QCQ93xGCh4cWeY`//${functions.config().mymizu.key}`
+          'Authorization': `Bearer ${functions.config().mymizu.key}`
         },
       });
     } catch(error) 
@@ -101,7 +101,7 @@ exports.checkTeamAndCreate = functions.https.onRequest(async (req, res) => {
   }}
   const team_name = req.query.name;
 
-  if(!invalid){
+  if(invalid){
   const teamRef = db.collection('teams');
   const record = await teamRef.where('teamname','==', team_name).get();
   if(!record.empty) res.send("A team with that name already exists!");

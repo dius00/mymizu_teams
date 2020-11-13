@@ -18,7 +18,7 @@ export default function TeamStats({teamStats}) {
 						alt="my mizu logo"
 					></img></div>
 			<h3 className="text-center mb-4" id="title">
-				My Weekly Team Stats
+				Team <strong><i>{teamStats.teamname}</i></strong> Weekly Stats
         
 			</h3>
 			<Card.Header >
