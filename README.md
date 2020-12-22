@@ -2,7 +2,6 @@
 <p align="center"><img width="400" src="https://raw.githubusercontent.com/dius00/mymizu_teams/main/src/API_logo.png" alt="App logo"></p>
 
 <p align="center">
-<img  src="https://img.shields.io/github/license/dius00/API_Night_MyMizu" alt="App logo">
 <img  src="https://img.shields.io/npm/v/npm" alt="Npm version">
 </p>
 <h1>Table of Content</h1>
