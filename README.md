@@ -13,7 +13,7 @@
 MyMizu teams is a competitive app to gamify the Mymizu process and promote usage of the app.
 
 This was developed during our time as students at <a href="https://github.com/codechrysalis">Code Chrysalis</a>.
-The App is online and can be accessed <a href="https://mymizuteams.web.app/">here</a>
+The App is online and can be accessed <a href="https://mymizuteams.web.app/">HERE</a>.
 <h1 id="user_guide">User Guide</h1>
 <h3>User Registration:</h3>
 When using the app, you will need to create an account for tracking purposes. Your MyMizu user id is used to track refilling activities from the MyMizu databse.
